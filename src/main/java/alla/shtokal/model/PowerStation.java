@@ -2,7 +2,9 @@ package alla.shtokal.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,8 +13,10 @@ import java.util.List;
 @Table(name = "elektrownie")
 public class PowerStation extends BaseEntity implements Serializable {
 
+
     @Id
     @GeneratedValue
+    //@NotNull(message = "validation message")
     @Column(name = "id")
     private Long id;
 

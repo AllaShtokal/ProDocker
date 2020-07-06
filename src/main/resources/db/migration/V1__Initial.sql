@@ -74,7 +74,7 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 
 CREATE TABLE `zdarzenia` (
   `id` int(11) NOT NULL,
-  `id_elektrowni` int(11) NOT NULL,
+  `id_elektrowni` int(11) ,
   `typ_zdarzenia` varchar(35) DEFAULT NULL,
   `ubytek_mocy` int(11) DEFAULT NULL,
   `data_rozpoczecia` timestamp NULL DEFAULT NULL,

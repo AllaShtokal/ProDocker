@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 //import javax.validation.Valid;
@@ -15,12 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/stations")
 public class PowerStationRestController {
+
     @Autowired
     private PowerStationService powerStationService;
 
     //getById
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<PowerStation> getPowerStation(@PathVariable("id") Long powerStationId) {
+    public ResponseEntity<PowerStation> getPowerStation( @PathVariable("id")  Long powerStationId) {
         if (powerStationId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -58,9 +60,10 @@ public class PowerStationRestController {
     }
 
     //POST add new object
-    @PostMapping(value = "/add",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<PowerStation> saveStation( PowerStation station) {
+    @PostMapping(value = "/add", consumes = "application/json", produces = "application/json"
+           // consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
+            )
+    public ResponseEntity<PowerStation> saveStation(@Validated @RequestBody  PowerStation station) {
         HttpHeaders headers = new HttpHeaders();
         if (station == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

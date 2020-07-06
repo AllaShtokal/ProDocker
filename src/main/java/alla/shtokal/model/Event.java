@@ -16,7 +16,7 @@ public class Event extends BaseEntity implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_elektrowni", nullable = false)
+    @JoinColumn(name = "id_elektrowni")
     @JsonBackReference
     private PowerStation station;
 
