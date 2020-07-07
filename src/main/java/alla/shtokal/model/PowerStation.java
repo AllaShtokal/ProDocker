@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -20,9 +21,10 @@ public class PowerStation extends BaseEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "station")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "station")
     @JsonManagedReference
     private List<Event> events;
+
 
     @Column(name = "nazwa")
     private String name;
@@ -37,7 +39,10 @@ public class PowerStation extends BaseEntity implements Serializable {
         this.name = name;
         this.power = power;
     }
+    public  void addEvent(Event ev){
+        this.events.add(ev);
 
+    }
     public List<Event> getEvents() {
         return events;
     }
