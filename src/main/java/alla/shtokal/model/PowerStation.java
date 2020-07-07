@@ -65,6 +65,8 @@ public class PowerStation extends BaseEntity implements Serializable {
     }
 
     public void setName(String name) {
+
+
         this.name = name;
     }
 
