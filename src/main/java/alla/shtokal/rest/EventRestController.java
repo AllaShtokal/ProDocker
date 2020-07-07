@@ -1,6 +1,7 @@
 package alla.shtokal.rest;
 
 import alla.shtokal.model.Event;
+import alla.shtokal.model.PowerStation;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,19 @@ public class EventRestController {
         }
         this.eventService.add(event);
         return new ResponseEntity<>(event, headers, HttpStatus.CREATED);
+    }
+
+    //deleteById
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<PowerStation> deleteEvent(@PathVariable("id") Long id) {
+        Event event = this.eventService.getById(id);
+
+        if (event == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        this.eventService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

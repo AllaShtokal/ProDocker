@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import java.util.concurrent.TimeUnit;
+
 import static alla.shtokal.security.ApplicationUserRole.*;
 
 @Configuration
@@ -26,21 +29,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                //.and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","index","/css/*","/js/*").permitAll()
-//                .antMatchers("/api/**").hasRole(ApplicationUserRole.ADMIN.name())
-//                .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(ApplicationUserPermission.EVENTS_WRITE.name())
-//                .antMatchers(HttpMethod.GET,"/management/api/**").hasAnyRole(ADMIN.name(), ADMIN_TRAINEE.name())
+                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
+
     }
+
 
     @Override
     @Bean
@@ -50,6 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder.encode("alla"))
                 //.roles(ApplicationUserRole.GUEST.name())//ROLE_GUEST
                 .authorities(GUEST.getGrantedAuthorities())
+                .roles()
                 .build();
 
         UserDetails admin = User.builder()
@@ -71,5 +75,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 admin,
                 adminTrainee
         );
+
     }
+
 }

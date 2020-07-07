@@ -6,6 +6,7 @@ import alla.shtokal.repository.PowerStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,11 +21,19 @@ public class PowerStationImplementation implements PowerStationService {
     PowerStationRepository powerStationRepository;
 
     @Override
+    @Transactional
     public PowerStation getById(Long id) {
-        return powerStationRepository.findById(id).get();
+
+
+        PowerStation powerStation = powerStationRepository.findById(id).get();
+        //powerStation.setName("inna22");
+        powerStation.getEvents().stream().forEach(event -> event.setPowerLoss(event.getPowerLoss() + 19));
+        return  powerStation;
+        //return powerStationRepository.findById(id).get();
     }
 
     @Override
+    @Transactional
     public void add(PowerStation powerStation) {
         powerStationRepository.save(powerStation);
     }
