@@ -16,6 +16,7 @@ public class EventImplementation implements EventService {
     @Autowired
     EventRepository eventRepository;
 
+
     @Override
     @Transactional
     public Event getById(Long id) {
