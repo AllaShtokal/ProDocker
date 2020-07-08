@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <title>Add User</title>
@@ -11,6 +12,9 @@
           href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
           crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -29,7 +33,13 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        <form class="form-signout" method="get" action="/logout">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+        </form>
+    </div>
 </div>
-</div>
+
+
 </body>
 </html>
