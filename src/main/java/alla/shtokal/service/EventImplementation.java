@@ -20,6 +20,7 @@ public class EventImplementation implements EventService {
     @Override
     @Transactional
     public Event getById(Long id) {
+        eventRepository.findAllByPowerLoss(7000);
         Event event = eventRepository.findById(id).get();
         event.setPowerLoss(500000);
         return eventRepository.findById(id).get();
