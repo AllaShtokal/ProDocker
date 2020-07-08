@@ -1,16 +1,12 @@
 package alla.shtokal.rest;
-
 import alla.shtokal.model.Event;
-import alla.shtokal.model.PowerStation;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +20,7 @@ public class EventsManagementController {
     private PowerStationService powerStationService;
 
     //getById
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMIN_TRAINEE')")
     public ResponseEntity<Event> getEvent(@PathVariable("id") Long eventId) {
         if (eventId == null) {
@@ -39,7 +35,7 @@ public class EventsManagementController {
     }
 
     //getAll
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_ADMINTRAINEE')")
     @PreAuthorize("hasAuthority('events:read')")
     public ResponseEntity<List<Event>> getAllEvents() {
