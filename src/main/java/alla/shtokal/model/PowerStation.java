@@ -61,6 +61,8 @@ public class PowerStation extends BaseEntity implements Serializable {
     }
 
     public String getName() {
+
+
         return name;
     }
 
@@ -71,6 +73,8 @@ public class PowerStation extends BaseEntity implements Serializable {
     }
 
     public int getPower() {
+
+
         return power;
     }
 
