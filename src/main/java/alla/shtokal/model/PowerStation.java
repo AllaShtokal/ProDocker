@@ -40,10 +40,12 @@ public class PowerStation extends BaseEntity implements Serializable {
 
         this.power = power;
     }
-    public  void addEvent(Event ev){
+
+    public void addEvent(Event ev) {
         this.events.add(ev);
 
     }
+
     public List<Event> getEvents() {
         return events;
     }
@@ -61,14 +63,10 @@ public class PowerStation extends BaseEntity implements Serializable {
     }
 
     public String getName() {
-
-
         return name;
     }
 
     public void setName(String name) {
-
-
         this.name = name;
     }
 
