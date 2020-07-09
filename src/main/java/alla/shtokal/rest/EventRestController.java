@@ -4,10 +4,8 @@ import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +15,17 @@ import java.util.List;
 @RequestMapping("/api/v1/events")
 public class EventRestController {
 
-    @Autowired
-    private EventService eventService;
-    @Autowired
-    private PowerStationService powerStationService;
+
+    private final EventService eventService;
+    private final PowerStationService powerStationService;
+
+    public EventRestController(EventService eventService, PowerStationService powerStationService) {
+        this.eventService = eventService;
+        this.powerStationService = powerStationService;
+    }
 
     //getById
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable("id") Long eventId) {
         if (eventId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -37,7 +39,7 @@ public class EventRestController {
     }
 
     //getAll
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(value = "")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = (List<Event>) this.eventService.getAllEvents();
 

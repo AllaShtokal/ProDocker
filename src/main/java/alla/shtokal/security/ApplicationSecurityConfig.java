@@ -1,7 +1,10 @@
 package alla.shtokal.security;
 
 import alla.shtokal.auth.ApplicationUserService;
-import alla.shtokal.jwt.JwtUsernameAndPasswordAuthentificationFilter;
+import alla.shtokal.jwt.JwtConfig;
+import alla.shtokal.jwt.JwtTokenVerifier;
+import alla.shtokal.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +16,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.concurrent.TimeUnit;
+import javax.crypto.SecretKey;
+
+import static alla.shtokal.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
@@ -24,12 +28,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService) {
+                                     ApplicationUserService applicationUserService,
+                                     SecretKey secretKey,
+                                     JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
+        this.secretKey = secretKey;
+        this.jwtConfig = jwtConfig;
     }
 
     @Override
@@ -39,34 +49,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 //.and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthentificationFilter(authenticationManager()))
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
+                .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+                .antMatchers("/api/**").hasRole(ADMIN.name())
+
                 .anyRequest()
                 .authenticated();
-//                .and()
-//                //.httpBasic();
-//                .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
-//                    .defaultSuccessUrl("/welcome", true)
-//                    //.passwordParameter("password")
-//                    //.usernameParameter("username")
-//                .and()
-//                .rememberMe()
-//                    .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))// how to extend session with remember me
-//                    .key("verySecured")
-//                    //.rememberMeParameter("remember-me")
-//                .and()
-//                .logout()
-//                    .logoutUrl("/logout")
-//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-//                    .clearAuthentication(true)
-//                    .invalidateHttpSession(true)
-//                    .deleteCookies("JSESSIONID", "remember-me", "Idea-56a025af")
-//                    .logoutSuccessUrl("/login");
     }
 
     @Override

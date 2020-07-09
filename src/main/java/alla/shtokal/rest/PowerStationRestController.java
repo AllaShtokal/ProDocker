@@ -67,7 +67,7 @@ public class PowerStationRestController {
 
     @PutMapping(value = "/update")
     public ResponseEntity<PowerStation> updateCustomer(
-            @PathVariable("id") Long id,  PowerStation stationDetails) {
+            @PathVariable("id") Long id, @RequestBody PowerStation stationDetails) {
         HttpHeaders headers = new HttpHeaders();
         PowerStation powerStation = this.powerStationService.getById(id);
         if (powerStation == null) {

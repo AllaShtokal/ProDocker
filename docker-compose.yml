@@ -9,15 +9,13 @@ services:
     ports:
       - "3306:3306"
   spring-jpa-app-container:
-    image: spring-new-docker
+    #image: 'shtokala/app:vers1'
+    image: spring-myapp
     ports:
       - "9966:9966"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-docker-container:3306/powerst_db?serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "root"
-    build:
-      context: "./"
-      dockerfile: "Dockerfile"
     depends_on:
       - mysql-docker-container

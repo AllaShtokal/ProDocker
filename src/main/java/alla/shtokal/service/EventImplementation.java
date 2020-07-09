@@ -1,13 +1,10 @@
 package alla.shtokal.service;
 
 import alla.shtokal.model.Event;
-import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -18,11 +15,7 @@ public class EventImplementation implements EventService {
 
 
     @Override
-    @Transactional
     public Event getById(Long id) {
-        eventRepository.findAllByPowerLoss(7000);
-        Event event = eventRepository.findById(id).get();
-        event.setPowerLoss(500000);
         return eventRepository.findById(id).get();
     }
 

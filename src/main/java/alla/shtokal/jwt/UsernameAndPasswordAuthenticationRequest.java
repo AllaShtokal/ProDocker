@@ -1,10 +1,12 @@
 package alla.shtokal.jwt;
 
-public class UsernameAndPasswordAuthentificationRequest {
-    private  String username;
+public class UsernameAndPasswordAuthenticationRequest {
+
+    private String username;
     private String password;
 
-    public  UsernameAndPasswordAuthentificationRequest(){}
+    public UsernameAndPasswordAuthenticationRequest() {
+    }
 
     public String getUsername() {
         return username;

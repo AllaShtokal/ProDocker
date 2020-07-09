@@ -3,7 +3,6 @@ package alla.shtokal.service;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.PowerStationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,8 +16,14 @@ import java.util.Map;
 @Service
 public class PowerStationImplementation implements PowerStationService {
 
-    @Autowired
-    PowerStationRepository powerStationRepository;
+
+    private final PowerStationRepository powerStationRepository;
+
+
+
+    public PowerStationImplementation(PowerStationRepository powerStationRepository) {
+        this.powerStationRepository = powerStationRepository;
+    }
 
     @Override
     @Transactional
@@ -26,10 +31,8 @@ public class PowerStationImplementation implements PowerStationService {
 
 
         PowerStation powerStation = powerStationRepository.findById(id).get();
-        //powerStation.setName("inna22");
         powerStation.getEvents().stream().forEach(event -> event.setPowerLoss(event.getPowerLoss() + 19));
         return  powerStation;
-        //return powerStationRepository.findById(id).get();
     }
 
     @Override
