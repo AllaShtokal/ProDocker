@@ -17,10 +17,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import static alla.shtokal.security.ApplicationUserRole.*;
 
 public class JwtTokenVerifier extends OncePerRequestFilter {
 
@@ -37,6 +39,28 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
+
+//        if (request.getRemoteAddr().equals("192.168.169.63")) {
+//
+//            Set<SimpleGrantedAuthority> simpleGrantedAuthorities1 = new HashSet<>();
+//            simpleGrantedAuthorities1.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//            Authentication authentication = new UsernamePasswordAuthenticationToken(
+//                    "admin",
+//                    null,
+//                    simpleGrantedAuthorities1
+//            );
+//
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
+
+
+
+        //System.out.println(request.getRemoteHost());
+        //request.getLocalPort()
+
 
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
 

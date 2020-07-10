@@ -1,7 +1,9 @@
 package alla.shtokal.rest;
 
+import alla.shtokal.dto.AllEventsDto;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
+import alla.shtokal.repository.StoredEvent;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
 import org.springframework.http.HttpHeaders;
@@ -18,10 +20,13 @@ public class EventRestController {
 
     private final EventService eventService;
     private final PowerStationService powerStationService;
+    private final StoredEvent storedEvent;
 
-    public EventRestController(EventService eventService, PowerStationService powerStationService) {
+
+    public EventRestController(EventService eventService, PowerStationService powerStationService, StoredEvent storedEvent) {
         this.eventService = eventService;
         this.powerStationService = powerStationService;
+        this.storedEvent = storedEvent;
     }
 
     //getById
@@ -49,6 +54,16 @@ public class EventRestController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/addfrom")
+    public ResponseEntity<List<Event>> getAllAdded() {
+        List<Event> events = this.eventService.addll();
+
+        if (events.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
     //POST add new object
     @PostMapping(value = "/add")
     public ResponseEntity<Event> saveStation(@RequestBody Event event, @RequestParam("id") Long id) {
@@ -59,6 +74,11 @@ public class EventRestController {
         }
         this.eventService.add(event);
         return new ResponseEntity<>(event, headers, HttpStatus.CREATED);
+    }
+    @GetMapping(value = "/test")
+    public AllEventsDto test(){
+
+        return storedEvent.getStores();
     }
 
     //deleteById
