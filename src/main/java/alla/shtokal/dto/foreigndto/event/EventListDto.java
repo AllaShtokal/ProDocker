@@ -1,4 +1,4 @@
-package alla.shtokal.dto;
+package alla.shtokal.dto.foreigndto.event;
 
 import java.util.List;
 

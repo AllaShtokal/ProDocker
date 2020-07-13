@@ -1,6 +1,8 @@
 package alla.shtokal.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.List;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "elektrownie")
 public class PowerStation extends BaseEntity implements Serializable {
 
@@ -42,39 +46,5 @@ public class PowerStation extends BaseEntity implements Serializable {
     public void addEvent(Event ev) {
         this.events.add(ev);
 
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPower() {
-
-
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
     }
 }

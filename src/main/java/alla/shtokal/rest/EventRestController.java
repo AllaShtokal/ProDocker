@@ -1,6 +1,7 @@
 package alla.shtokal.rest;
 
-import alla.shtokal.dto.AllEventsDto;
+import alla.shtokal.dto.foreigndto.event.AllEventsDto;
+import alla.shtokal.dto.foreigndto.event.EventDto;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.StoredEvent;
@@ -53,6 +54,17 @@ public class EventRestController {
         }
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
+
+    //getAllEventDtos
+//    @GetMapping(value = "")
+//    public ResponseEntity<List<EventDto>> getAllEventsDto() {
+//        List<EventDto> events = (List<EventDto>) this.eventService.getAllEvents();
+//
+//        if (events.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(events, HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/addfrom")
     public ResponseEntity<List<Event>> getAllAdded() {

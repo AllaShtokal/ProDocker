@@ -1,39 +1,43 @@
 package alla.shtokal.service;
 
-import alla.shtokal.dto.AllEventsDto;
-import alla.shtokal.dto.EventDto;
+import alla.shtokal.dto.foreigndto.event.EventDto;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.EventRepository;
 import alla.shtokal.repository.PowerStationRepository;
 import alla.shtokal.repository.StoredEvent;
-import org.checkerframework.checker.nullness.Opt;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class EventImplementation implements EventService {
 
     @Autowired
     EventRepository eventRepository;
+
     @Autowired
     PowerStationRepository powerStationRepository;
 
     @Autowired
+    ModelMapper modelMapper;
+
+    @Autowired
     StoredEvent storedEvent;
 
-
-
+    @Autowired
+    EventDto eventDto;
 
     @Override
     public Event getById(Long id) {
-        return eventRepository.findById(id).get();
+        Optional<Event> optionalEvent = eventRepository.findById(id);
+        //modelMapper.map();
+        return optionalEvent.orElseGet(Event::new);
     }
 
     @Override
@@ -45,19 +49,8 @@ public class EventImplementation implements EventService {
     @Override
     @Transactional
     public List<Event> addll() {
-        //System.out.println(storedEvent.getStores().getEmpty());
 
-//        RestTemplate restTemplate = new RestTemplate();
-//        String Url
-//                = "http://S0314:8085/power/api/tasks/?page=0&size=30";
-//        ResponseEntity<AllEventsDto> forEntity = restTemplate.getForEntity(Url, AllEventsDto.class);
-//
-//        List<EventDto> awaria = forEntity.getBody().getContent()
-//                .stream().peek(eventDto -> System.out.println(eventDto.getNamePowerStation()))
-//                .filter(eventDto -> eventDto.getTaskType().toString().equals("AWARIA")).limit(100)
-//                .collect(Collectors.toList());
-//
-        ArrayList<EventDto> awaria = storedEvent.getStores().getContent();
+        List<EventDto> awaria = storedEvent.getStores().getContent();
         List<Event> eventsE = new ArrayList<>();
 
         for (EventDto e : awaria) {
@@ -69,7 +62,7 @@ public class EventImplementation implements EventService {
                         e.getStartDate(),
                         e.getEndDate());
                 eventsE.add(event);
-            }, () -> System.out.println("Nie udało się"));
+            }, () -> log.info("Nie udało się"));
 
         }
 
@@ -87,6 +80,7 @@ public class EventImplementation implements EventService {
     public Collection<Event> getAllEvents() {
 
         return eventRepository.findAll();
+
     }
 
     /**

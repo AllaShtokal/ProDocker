@@ -1,12 +1,16 @@
 package alla.shtokal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "zdarzenia")
 public class Event extends BaseEntity implements Serializable {
 
@@ -59,51 +63,5 @@ public class Event extends BaseEntity implements Serializable {
         this.endDate = endDate;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public PowerStation getStation() {
-        return station;
-    }
-
-    public void setStation(PowerStation station) {
-        this.station = station;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
-    public int getPowerLoss() {
-        return powerLoss;
-    }
-
-    public void setPowerLoss(int powerLoss) {
-        this.powerLoss = powerLoss;
-    }
-
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
-    }
-
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
-    }
 }
