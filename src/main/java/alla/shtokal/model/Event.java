@@ -62,6 +62,10 @@ public class Event extends BaseEntity implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    public Event( String eventType, Long id) {
+
+        this.eventType = eventType;
+        this.id = id;  }
 
 
 }

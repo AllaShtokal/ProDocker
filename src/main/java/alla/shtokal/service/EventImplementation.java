@@ -18,8 +18,8 @@ import java.util.*;
 @Service
 public class EventImplementation implements EventService {
 
-    @Autowired
-    EventRepository eventRepository;
+
+    private EventRepository eventRepository;
 
     @Autowired
     PowerStationRepository powerStationRepository;
@@ -30,14 +30,17 @@ public class EventImplementation implements EventService {
     @Autowired
     StoredEvent storedEvent;
 
-    @Autowired
-    EventDto eventDto;
+    public EventImplementation(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
 
     @Override
     public Event getById(Long id) {
-        Optional<Event> optionalEvent = eventRepository.findById(id);
-        //modelMapper.map();
-        return optionalEvent.orElseGet(Event::new);
+        //Optional<Event> optionalEvent = eventRepository.findById(id);
+
+        //return optionalEvent.orElseGet(Event::new);
+        return  eventRepository.getOne(id);
     }
 
     @Override
