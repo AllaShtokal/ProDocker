@@ -1,44 +1,56 @@
 package alla.shtokal.rabitmq;
 
-import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+@EnableRabbit
 @Configuration
 public class RabbitConfiguration {
-//    @Bean
-//    public ConnectionFactory connectionFactory() {
-//        CachingConnectionFactory connectionFactory =
-//                new CachingConnectionFactory("localhost");
-//        return connectionFactory;
-//    }
-//
-//    @Bean
-//    public AmqpAdmin amqpAdmin() {
-//        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory());
-//        return rabbitAdmin;
-//    }
-//
-//    @Bean
-//    public RabbitTemplate rabbitTemplate() {
-//        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
-//        rabbitTemplate.setDefaultReceiveQueue("q199");
-//        rabbitTemplate.setReplyTimeout(60 * 1000);
-//        rabbitTemplate.set
-//        //no reply to - we use direct-reply-to
-//        return rabbitTemplate;
-//    }
-//
+
+
+    static final String queueName1 = "77";
+    static final String queueName2 = "88";
+
     @Bean
-    public Queue myQueue() {
-        return new Queue("q199");
+    public FanoutExchange fanoutExchangeA(){
+        return new FanoutExchange("99-exchange");
+    }
+
+    @Bean
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(queueName1);
+        return container;
+    }
+
+    @Bean
+    public Queue myQueue1() {
+        return new Queue(queueName1);
+    }
+
+    //
+    @Bean
+    public Queue myQueue2() {
+        return new Queue(queueName2);
+    }
+
+    @Bean
+    public Binding binding1(){
+        return BindingBuilder.bind(myQueue1()).to(fanoutExchangeA());
+    }
+
+    @Bean
+    public Binding binding2(){
+        return BindingBuilder.bind(myQueue2()).to(fanoutExchangeA());
     }
 
 

@@ -1,7 +1,7 @@
 package alla.shtokal;
 
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
-import alla.shtokal.dto.foreigndto.event.EventDto;
+import alla.shtokal.dto.foreigndto.event.TaskDTO;
 import alla.shtokal.model.Event;
 
 import org.junit.jupiter.api.Disabled;
@@ -62,7 +62,7 @@ public class EventsRepositoryIntegrationTest {
                 = "http://S0314:8085/power/api/tasks/?page=0&size=30";
         ResponseEntity<AllEventsDto> forEntity = restTemplate.getForEntity(Url, AllEventsDto.class);
 
-        List<EventDto> awaria = forEntity.getBody().getContent()
+        List<TaskDTO> awaria = forEntity.getBody().getContent()
                 .stream().peek(eventDto -> System.out.println(eventDto.getNamePowerStation()))
                 .filter(eventDto -> eventDto.getTaskType().toString().equals("AWARIA")).limit(100)
                 .collect(Collectors.toList());

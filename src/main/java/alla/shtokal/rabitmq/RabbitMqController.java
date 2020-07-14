@@ -3,7 +3,6 @@ package alla.shtokal.rabitmq;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,16 @@ public class RabbitMqController {
     @Value("${spring.rabbitmq.username}")
     private String value;
 
-    @Autowired
-    RabbitTemplate template;
+
+    private RabbitTemplate template;
+
+    public RabbitMqController(RabbitTemplate template) {
+        this.template = template;
+      this.template.setExchange("test-mateusz-exchange");
+        this.template.setRoutingKey("foo.bar.baz");
+    }
+
+
 
     @RequestMapping("/process")
     @ResponseBody
@@ -23,25 +30,22 @@ public class RabbitMqController {
         return "Empty mapping";
     }
 
-    @RequestMapping("/process/{message}")
-    @ResponseBody
+    @GetMapping("/process/{message}")
     String error(@PathVariable("message") String message) {
-        log.info(String.format("Emit '%s'",message));
-        String response = getResponse(message);
 
-        log.info(String.format("Received on producer '%s'",response));
+        String response = (String) template.convertSendAndReceive("99-exchange",message);
         return String.valueOf("returned from worker : " + response);
     }
 
     @GetMapping("/test")
     public void test()
     {
-        template.convertAndSend("q1", "testowe");
+
+        template.convertAndSend("wiadomość");
 
     }
 
-   // @Async
-     public String getResponse(@PathVariable("message") String message) {
-        return (String) template.convertSendAndReceive("q1",message);
-    }
+
+
+
 }

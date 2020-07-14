@@ -6,12 +6,16 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Setter
 @Getter
 @ToString
-public class EventDto {
+public class TaskDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -22,7 +26,7 @@ public class EventDto {
     private TaskType taskType;
 
     @NotNull
-    private int powerLoss;
+    private BigDecimal powerLoss;
 
     @NotNull
     private Timestamp startDate;

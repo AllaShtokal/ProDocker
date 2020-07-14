@@ -62,6 +62,8 @@ public class EventRestController {
     //getAllEventDtos
     @GetMapping(value = "/fullinfo")
     public ResponseEntity<List<FullEventDto>> getAllEventsDto() {
+
+
         List<FullEventDto> events = (List<FullEventDto>) this.fullEventDtoService.getAllEventDto();
 
         events.forEach(System.out::println);

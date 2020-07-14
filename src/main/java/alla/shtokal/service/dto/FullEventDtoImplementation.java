@@ -49,8 +49,6 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 
             eventsDto.add(fullevent);
         }
-
-
         return eventsDto;
 
     }

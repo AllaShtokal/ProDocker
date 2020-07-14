@@ -4,13 +4,13 @@ import java.util.List;
 
 public class EventListDto  {
 
-    private List<EventDto> listEvents ;
+    private List<TaskDTO> listEvents ;
 
-    public List<EventDto> getListEvents() {
+    public List<TaskDTO> getListEvents() {
         return listEvents;
     }
 
-    public void setListEvents(List<EventDto> listEvents) {
+    public void setListEvents(List<TaskDTO> listEvents) {
         this.listEvents = listEvents;
     }
 }
