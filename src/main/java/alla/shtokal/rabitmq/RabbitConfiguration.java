@@ -10,34 +10,35 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@EnableRabbit
+
 @Configuration
 public class RabbitConfiguration {
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory("localhost");
-        return connectionFactory;
-    }
-
-    @Bean
-    public AmqpAdmin amqpAdmin() {
-        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory());
-        return rabbitAdmin;
-    }
-
-    @Bean
-    public RabbitTemplate rabbitTemplate() {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
-        rabbitTemplate.setDefaultReceiveQueue("query-example-6");
-        rabbitTemplate.setReplyTimeout(60 * 1000);
-        //no reply to - we use direct-reply-to
-        return rabbitTemplate;
-    }
-
+//    @Bean
+//    public ConnectionFactory connectionFactory() {
+//        CachingConnectionFactory connectionFactory =
+//                new CachingConnectionFactory("localhost");
+//        return connectionFactory;
+//    }
+//
+//    @Bean
+//    public AmqpAdmin amqpAdmin() {
+//        RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory());
+//        return rabbitAdmin;
+//    }
+//
+//    @Bean
+//    public RabbitTemplate rabbitTemplate() {
+//        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
+//        rabbitTemplate.setDefaultReceiveQueue("q199");
+//        rabbitTemplate.setReplyTimeout(60 * 1000);
+//        rabbitTemplate.set
+//        //no reply to - we use direct-reply-to
+//        return rabbitTemplate;
+//    }
+//
     @Bean
     public Queue myQueue() {
-        return new Queue("query-example-6");
+        return new Queue("q199");
     }
 
 

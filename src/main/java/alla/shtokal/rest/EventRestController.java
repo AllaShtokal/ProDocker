@@ -1,12 +1,14 @@
 package alla.shtokal.rest;
 
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
-import alla.shtokal.dto.foreigndto.event.EventDto;
+import alla.shtokal.dto.mydto.FullEventDto;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.StoredEvent;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
+import alla.shtokal.service.dto.FullEventDtoService;
+import net.minidev.json.JSONUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,14 @@ public class EventRestController {
 
 
     private final EventService eventService;
+    private final FullEventDtoService fullEventDtoService;
     private final PowerStationService powerStationService;
     private final StoredEvent storedEvent;
 
 
-    public EventRestController(EventService eventService, PowerStationService powerStationService, StoredEvent storedEvent) {
+    public EventRestController(EventService eventService, FullEventDtoService fullEventDtoService, PowerStationService powerStationService, StoredEvent storedEvent) {
         this.eventService = eventService;
+        this.fullEventDtoService = fullEventDtoService;
         this.powerStationService = powerStationService;
         this.storedEvent = storedEvent;
     }
@@ -56,15 +60,20 @@ public class EventRestController {
     }
 
     //getAllEventDtos
-//    @GetMapping(value = "")
-//    public ResponseEntity<List<EventDto>> getAllEventsDto() {
-//        List<EventDto> events = (List<EventDto>) this.eventService.getAllEvents();
-//
-//        if (events.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(events, HttpStatus.OK);
-//    }
+    @GetMapping(value = "/fullinfo")
+    public ResponseEntity<List<FullEventDto>> getAllEventsDto() {
+        List<FullEventDto> events = (List<FullEventDto>) this.fullEventDtoService.getAllEventDto();
+
+        events.forEach(System.out::println);
+
+
+        if (events.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
 
     @GetMapping(value = "/addfrom")
     public ResponseEntity<List<Event>> getAllAdded() {

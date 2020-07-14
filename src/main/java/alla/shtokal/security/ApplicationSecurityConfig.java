@@ -58,8 +58,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
                 .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**").hasRole(ADMIN.name())
+                .antMatchers("/**", "index", "/css/*", "/js/*").permitAll()
+                //.antMatchers("/").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated();
     }

@@ -1,19 +1,17 @@
 package alla.shtokal;
-
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
-@EnableAsync
+
 @SpringBootApplication
 @EnableFeignClients
-@EnableRabbit
-public class MainMagic {
+public class MainMagic extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(MainMagic.class, args);
@@ -24,4 +22,8 @@ public class MainMagic {
         return builder.build();
     }
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(MainMagic.class);
+    }
 }

@@ -3,8 +3,9 @@ package alla.shtokal;
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
 import alla.shtokal.dto.foreigndto.event.EventDto;
 import alla.shtokal.model.Event;
-import org.junit.Ignore;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,7 +45,7 @@ public class EventsRepositoryIntegrationTest {
     }
 
     @Test
-    @Ignore("")
+    @Disabled("")
     public void test1() {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl
@@ -54,7 +55,7 @@ public class EventsRepositoryIntegrationTest {
 
     }
 
-    @Test @Ignore("")
+    @Test @Disabled("")
     public void test2() {
         RestTemplate restTemplate = new RestTemplate();
         String Url
@@ -80,7 +81,7 @@ public class EventsRepositoryIntegrationTest {
     }
 
     @Test
-    @Ignore("")
+    @Disabled("")
     public void testAddEvent() {
         MultiValueMap<String, String> mapauth = new LinkedMultiValueMap<>();
         List<String> strings = List.of("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJzdGF0aW9uczp3cml0ZSJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiZXZlbnRzOnJlYWQifSx7ImF1dGhvcml0eSI6ImV2ZW50czp3cml0ZSJ9LHsiYXV0aG9yaXR5Ijoic3RhdGlvbnM6cmVhZCJ9XSwiaWF0IjoxNTk0MjkzNDY1LCJleHAiOjE1OTUxMDk2MDB9.Fk_PnPYyFC6-Rnf0Twi5RHalo_b6wYTexjswL6sM1o5Wv-RnlxYAGifshw-ctv5qcdhTnn1FxmgDd8Jr0Vuu9A");

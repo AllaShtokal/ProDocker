@@ -37,10 +37,12 @@ public class EventImplementation implements EventService {
 
     @Override
     public Event getById(Long id) {
-        //Optional<Event> optionalEvent = eventRepository.findById(id);
+        Optional<Event> optionalEvent = eventRepository.findById(id);
 
-        //return optionalEvent.orElseGet(Event::new);
-        return  eventRepository.getOne(id);
+        return optionalEvent.orElseGet(Event::new);
+        //eventRepository.getOne()
+        //return  eventRepository.findById(id).get();
+              //  eventRepository.findById(id).get();
     }
 
     @Override

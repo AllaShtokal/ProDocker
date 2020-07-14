@@ -4,20 +4,20 @@ package alla.shtokal.rabitmq;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
-@Controller
+@RestController
 public class RabbitMqController {
+
+    @Value("${spring.rabbitmq.username}")
+    private String value;
 
     @Autowired
     RabbitTemplate template;
 
-    @RequestMapping("/")
+    @RequestMapping("/process")
     @ResponseBody
     String home() {
         return "Empty mapping";
@@ -33,8 +33,15 @@ public class RabbitMqController {
         return String.valueOf("returned from worker : " + response);
     }
 
+    @GetMapping("/test")
+    public void test()
+    {
+        template.convertAndSend("q1", "testowe");
+
+    }
+
    // @Async
      public String getResponse(@PathVariable("message") String message) {
-        return (String) template.convertSendAndReceive("query-example-6",message);
+        return (String) template.convertSendAndReceive("q1",message);
     }
 }
