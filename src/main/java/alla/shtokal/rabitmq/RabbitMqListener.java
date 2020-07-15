@@ -1,6 +1,6 @@
 package alla.shtokal.rabitmq;
 
-import alla.shtokal.dto.foreigndto.event.TaskDTO;
+import alla.shtokal.dto.foreigndto.event.EventDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +26,7 @@ public class RabbitMqListener {
   public void worker11(String message) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
-      TaskDTO taskDTO = objectMapper.readValue(message, TaskDTO.class);
+      EventDTO taskDTO = objectMapper.readValue(message, EventDTO.class);
       log.info("accepted on app1 : " + taskDTO.toString());
     } catch (JsonProcessingException e) {
       e.printStackTrace();

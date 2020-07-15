@@ -1,6 +1,6 @@
 package alla.shtokal.service;
 
-import alla.shtokal.dto.foreigndto.event.TaskDTO;
+import alla.shtokal.dto.foreigndto.event.EventDTO;
 import alla.shtokal.model.Event;
 import alla.shtokal.repository.EventRepository;
 import alla.shtokal.repository.PowerStationRepository;
@@ -54,7 +54,7 @@ public class EventImplementation implements EventService {
     @Transactional
     public List<Event> addll() {
 
-        List<TaskDTO> awaria = storedEvent.getStores().getContent();
+        List<EventDTO> awaria = storedEvent.getStores().getContent();
         List<Event> eventsE = new ArrayList<>();
 
 //        for (EventDto e : awaria) {

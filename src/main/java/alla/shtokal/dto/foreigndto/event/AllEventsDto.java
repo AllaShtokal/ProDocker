@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 public class AllEventsDto implements Serializable {
-    List<TaskDTO> content = new ArrayList<>();
+    List<EventDTO> content = new ArrayList<>();
     Pageable pageableObject;
     private boolean last;
     private float totalElements;

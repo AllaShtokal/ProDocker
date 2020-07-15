@@ -1,5 +1,6 @@
 package alla.shtokal.rest;
 
+import alla.shtokal.anotations.LogController;
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
 import alla.shtokal.dto.mydto.FullEventDto;
 import alla.shtokal.model.Event;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -49,6 +51,7 @@ public class EventRestController {
     }
 
     //getAll
+    @LogController
     @GetMapping(value = "")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = (List<Event>) this.eventService.getAllEvents();
@@ -60,6 +63,7 @@ public class EventRestController {
     }
 
     //getAllEventDtos
+    @LogController
     @GetMapping(value = "/fullinfo")
     public ResponseEntity<List<FullEventDto>> getAllEventsDto() {
 
@@ -76,6 +80,22 @@ public class EventRestController {
 
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
+
+    //getFullEventById
+    @GetMapping(value = "/fullinfo/{id}")
+    public ResponseEntity<FullEventDto> getFullEvent(@PathVariable("id") Long eventId) {
+        if (eventId == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        FullEventDto event = this.fullEventDtoService.getEventById(eventId);
+        if (event == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(event, HttpStatus.OK);
+
+    }
+
+
 
     @GetMapping(value = "/addfrom")
     public ResponseEntity<List<Event>> getAllAdded() {

@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @Getter
 @ToString
-public class TaskDTO implements Serializable {
+public class EventDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

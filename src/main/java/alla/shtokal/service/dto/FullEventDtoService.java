@@ -7,4 +7,5 @@ import java.util.Collection;
 
 public interface FullEventDtoService {
     Collection<FullEventDto> getAllEventDto();
+    FullEventDto getEventById(Long id);
 }

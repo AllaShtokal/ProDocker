@@ -92,6 +92,20 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.3.RELEASE</version>
         </dependency>
+        <!-- web-services - -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+        <!-- wsdl4j -->
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+
         <!-- Spock Framework -->
         <dependency>
             <groupId>org.spockframework</groupId>
