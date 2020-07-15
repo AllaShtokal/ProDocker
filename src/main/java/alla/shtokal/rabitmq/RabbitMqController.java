@@ -30,12 +30,12 @@ public class RabbitMqController {
         return "Empty mapping";
     }
 
-    @GetMapping("/process/{message}")
-    String error(@PathVariable("message") String message) {
-
-        String response = (String) template.convertSendAndReceive("99-exchange",message);
-        return String.valueOf("returned from worker : " + response);
-    }
+//    @GetMapping("/process/{message}")
+//    String error(@PathVariable("message") String message) {
+//
+//        String response = (String) template.convertSendAndReceive("99-exchange",message);
+//        return String.valueOf("returned from worker : " + response);
+//    }
 
     @GetMapping("/test")
     public void test()

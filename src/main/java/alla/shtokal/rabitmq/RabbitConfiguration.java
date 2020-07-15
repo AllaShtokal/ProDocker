@@ -16,21 +16,26 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfiguration {
 
 
-    static final String queueName1 = "77";
-    static final String queueName2 = "88";
+    static final String queueName1 = "app";
+    static final String queueName2 = "app2";
 
     @Bean
     public FanoutExchange fanoutExchangeA(){
-        return new FanoutExchange("99-exchange");
+        return new FanoutExchange("test-mateusz-exchange");
     }
+//    @Bean
+//    MessageListenerAdapter listenerAdapter(RabbitMqListener receiver) {
+//        return new MessageListenerAdapter(receiver, "worker11");
+//    }
 
-    @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(queueName1);
-        return container;
-    }
+//    @Bean
+//    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,MessageListenerAdapter listenerAdapter) {
+//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory);
+//        container.setQueueNames(queueName1,queueName2);
+//        container.setMessageListener(listenerAdapter);
+//        return container;
+//    }
 
     @Bean
     public Queue myQueue1() {
