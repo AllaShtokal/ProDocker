@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @Setter
 @ToString
@@ -40,11 +42,11 @@ public class FullEventDto implements Serializable {
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    private String startDate;
+    private Date startDate;
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    private String endDate;
+    private Date endDate;
 
     @NotNull
     private Long psId;
@@ -76,12 +78,12 @@ public class FullEventDto implements Serializable {
     }
 
 
-    public String getStartDate() {
+    public Date getStartDate() {
         log.info("startDate "+startDate);
         return startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         log.info("endDate "+endDate);
         return endDate;
     }

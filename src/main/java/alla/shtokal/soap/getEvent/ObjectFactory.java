@@ -1,5 +1,5 @@
 
-package mypackage1;
+package alla.shtokal.soap.getEvent;
 
 import alla.shtokal.dto.mydto.FullEventDto;
 

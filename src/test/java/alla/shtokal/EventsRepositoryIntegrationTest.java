@@ -2,25 +2,51 @@ package alla.shtokal;
 
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
 import alla.shtokal.dto.foreigndto.event.EventDTO;
+import alla.shtokal.dto.mydto.FullEventDto;
 import alla.shtokal.model.Event;
 
+import alla.shtokal.soap.getAllEvents.GetAllEventsRequest;
+import alla.shtokal.soap.getAllEvents.GetAllEventsResponse;
+import alla.shtokal.soap.listtasks.GetAllTasksRequest;
+import alla.shtokal.soap.listtasks.GetAllTasksResponse;
+import alla.shtokal.soap.listtasks.TaskXML;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.ws.client.core.WebServiceTemplate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringBootTest
+@Log4j2
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class EventsRepositoryIntegrationTest {
+
+    private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+
+    @LocalServerPort
+    private int port = 8085;
+
+    @BeforeEach
+    public void init() throws Exception {
+        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetAllTasksRequest.class));
+        marshaller.afterPropertiesSet();
+    }
 
     public static class Dog {
         public String message;
@@ -42,6 +68,17 @@ public class EventsRepositoryIntegrationTest {
         public void setStatus(String status) {
             this.status = status;
         }
+    }
+
+    @Test
+    public void testSendAndReceive2() {
+        WebServiceTemplate ws = new WebServiceTemplate(marshaller);
+
+        GetAllTasksRequest getAllEventsRequest = new GetAllTasksRequest();
+
+        GetAllTasksResponse object = (GetAllTasksResponse) ws.marshalSendAndReceive("http://s0314/:" + port + "/power/ws",getAllEventsRequest);
+        List<TaskXML> mylist = object.getTaskXMLS();
+        log.info(" mylist.size() " + mylist.size());
     }
 
     @Test
@@ -103,13 +140,17 @@ public class EventsRepositoryIntegrationTest {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Test
+    @Test @Disabled("")
     public void testRabbit() {
 
         rabbitTemplate.convertAndSend("eggs", "message11");
 
 
     }
+
+
+
+
 
 
 }

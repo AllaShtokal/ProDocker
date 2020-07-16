@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -66,6 +67,7 @@ public class Event extends BaseEntity implements Serializable {
 
         this.eventType = eventType;
         this.id = id;  }
+
 
 
 }

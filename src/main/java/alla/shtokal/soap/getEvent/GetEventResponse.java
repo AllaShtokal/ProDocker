@@ -1,8 +1,13 @@
 
-package mypackage1;
+package alla.shtokal.soap.getEvent;
+
+import alla.shtokal.dto.mydto.FullEventDto;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -17,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="event" type="{http://alla.com/getevent}event"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,27 +33,25 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "event"
 })
-@XmlRootElement(name = "getEventByIdRequest", namespace = "http://alla.com/getevent")
-public class GetEventByIdRequest {
+@XmlRootElement(name = "getEventResponse", namespace = "http://alla.com/getevent")
+@Getter
+@Setter
+public class GetEventResponse {
 
-    protected Long id;
+    @XmlElement(required = true)
+    protected FullEventDto event;
 
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public Long getId() {
-        return id;
+
+
+    public FullEventDto getEvent() {
+        return event;
     }
 
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(Long value) {
-        this.id = value;
+
+    public void setEvent(FullEventDto value) {
+        this.event = value;
     }
 
 }

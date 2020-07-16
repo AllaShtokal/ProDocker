@@ -2,6 +2,7 @@ package alla.shtokal.service;
 
 import alla.shtokal.dto.foreigndto.event.EventDTO;
 import alla.shtokal.model.Event;
+import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.EventRepository;
 import alla.shtokal.repository.PowerStationRepository;
 import alla.shtokal.repository.StoredEvent;
@@ -50,6 +51,7 @@ public class EventImplementation implements EventService {
 
     }
 
+    //save all tasks from remote host
     @Override
     @Transactional
     public List<Event> addll() {
@@ -57,18 +59,18 @@ public class EventImplementation implements EventService {
         List<EventDTO> awaria = storedEvent.getStores().getContent();
         List<Event> eventsE = new ArrayList<>();
 
-//        for (EventDto e : awaria) {
-//            Optional<PowerStation> p = powerStationRepository.findFirstByName(e.getNamePowerStation());
-//            p.ifPresentOrElse(powerStation -> {
-//                Event event = new Event(p.get(),
-//                        e.getTaskType().toString(),
-//                        e.getPowerLoss(),
-//                        e.getStartDate(),
-//                        e.getEndDate());
-//                eventsE.add(event);
-//            }, () -> log.info("Nie udało się"));
-//
-//        }
+        for (EventDTO e : awaria) {
+            Optional<PowerStation> p = powerStationRepository.findFirstByName(e.getNamePowerStation());
+            p.ifPresentOrElse(powerStation -> {
+                Event event = new Event(p.get(),
+                        e.getTaskType().toString(),
+                        e.getPowerLoss().intValue(),
+                        e.getStartDate(),
+                        e.getEndDate());
+                eventsE.add(event);
+            }, () -> log.info("Nie udało się"));
+
+        }
 
         return eventRepository.saveAll(eventsE);
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:asn="http://alla.com/getevent"
+           targetNamespace="http://alla.com/getevent"
+>
+
+    <xs:element name="getAllEventsRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllEventsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mylist" type="asn:event" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:complexType name="event">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="eventType" type="xs:string"/>
+            <xs:element name="powerLoss" type="xs:int"/>
+            <xs:element name="startDate" type="xs:dateTime"/>
+            <xs:element name="endDate" type="xs:dateTime"/>
+            <xs:element name="psId" type="xs:long"/>
+            <xs:element name="psName" type="xs:string"/>
+            <xs:element name="psPower" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
