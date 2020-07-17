@@ -2,14 +2,10 @@ package alla.shtokal;
 
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
 import alla.shtokal.dto.foreigndto.event.EventDTO;
-import alla.shtokal.dto.mydto.FullEventDto;
 import alla.shtokal.model.Event;
 
-import alla.shtokal.soap.getAllEvents.GetAllEventsRequest;
-import alla.shtokal.soap.getAllEvents.GetAllEventsResponse;
-import alla.shtokal.soap.listtasks.GetAllTasksRequest;
-import alla.shtokal.soap.listtasks.GetAllTasksResponse;
-import alla.shtokal.soap.listtasks.TaskXML;
+import com.alla.getallevents.GetAllEventsRequest;
+import com.alla.getallevents.GetAllEventsResponse;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -17,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +23,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.ws.client.core.WebServiceTemplate;
+import s0314.gettask.GetAllTasksRequest;
+import s0314.gettask.GetAllTasksResponse;
+import s0314.gettask.TaskXML;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,7 +42,7 @@ public class EventsRepositoryIntegrationTest {
 
     @BeforeEach
     public void init() throws Exception {
-        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetAllTasksRequest.class));
+        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetAllTasksRequest.class),ClassUtils.getPackageName(GetAllEventsRequest.class));
         marshaller.afterPropertiesSet();
     }
 
@@ -77,7 +75,18 @@ public class EventsRepositoryIntegrationTest {
         GetAllTasksRequest getAllEventsRequest = new GetAllTasksRequest();
 
         GetAllTasksResponse object = (GetAllTasksResponse) ws.marshalSendAndReceive("http://s0314:" + 8085 + "/power/ws",getAllEventsRequest);
-        List<TaskXML> mylist = object.getTaskXMLS();
+        List<TaskXML> mylist = object.getTasks();
+        log.info(" mylist.size() " + mylist.size());
+    }
+
+    @Test
+    public void test3() {
+        WebServiceTemplate ws = new WebServiceTemplate(marshaller);
+
+        GetAllEventsRequest getAllEventsRequest = new GetAllEventsRequest();
+
+        GetAllEventsResponse object = (GetAllEventsResponse) ws.marshalSendAndReceive("http://localhost:" + 9966 + "/ws",getAllEventsRequest);
+        List<com.alla.getallevents.Event> mylist = object.getMylist();
         log.info(" mylist.size() " + mylist.size());
     }
 

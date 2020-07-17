@@ -23,12 +23,12 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    @Bean(name = {"event", "allevents"})
+    @Bean(name = "event")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchemaCollection countriesSchema2) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("EventPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://alla.com/getevent");
+        wsdl11Definition.setTargetNamespace("http://alla.com/");
         wsdl11Definition.setSchemaCollection(countriesSchema2);
         return wsdl11Definition;
     }
@@ -36,8 +36,10 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchemaCollection countriesSchema2() {
         CommonsXsdSchemaCollection commonsXsdSchemaCollection = new CommonsXsdSchemaCollection(
-                //new ClassPathResource("event.xsd"),
-                new ClassPathResource("allevents.xsd"));
+                new ClassPathResource("event.xsd"),
+                new ClassPathResource("allevents.xsd")
+                //,new ClassPathResource("tasks.xsd")
+        );
         return commonsXsdSchemaCollection;
     }
 }

@@ -198,11 +198,24 @@
             <version>0.11.2</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/jaxws-maven-plugin -->
 
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.2.10</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.xml.ws/jaxws-api -->
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.2</version>
+        </dependency>
 
 
     </dependencies>
+
 
     <build>
         <plugins>
@@ -230,6 +243,49 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <!-- Following configuration will pass all XML files from ${project.basedir}/src/bindings to wsimport. -->
+                        <configuration>
+<!--                            <bindingDirectory>${project.basedir}/src/bindings</bindingDirectory>-->
+                            <wsdlUrls>
+                                <wsdlUrl>http://s0314:8085/power/ws/task.wsdl</wsdlUrl>
+                            </wsdlUrls>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.5.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/event.xsd</source>
+                        <source>${project.basedir}/src/main/resources/allevents.xsd</source>
+                    </sources>
+                </configuration>
+            </plugin>
+
 
         </plugins>
     </build>

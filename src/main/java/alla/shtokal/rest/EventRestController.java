@@ -9,19 +9,19 @@ import alla.shtokal.repository.StoredEvent;
 import alla.shtokal.service.EventService;
 import alla.shtokal.service.PowerStationService;
 import alla.shtokal.service.dto.FullEventDtoService;
-import alla.shtokal.soap.getAllEvents.GetAllEventsRequest;
-import alla.shtokal.soap.getAllEvents.GetAllEventsResponse;
-import alla.shtokal.soap.listtasks.GetAllTasksRequest;
-import alla.shtokal.soap.listtasks.GetAllTasksResponse;
-import alla.shtokal.soap.listtasks.TaskXML;
+
+
+import com.alla.getallevents.GetAllEventsRequest;
+import com.alla.getallevents.GetAllEventsResponse;
 import lombok.extern.log4j.Log4j2;
-import net.minidev.json.JSONUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import s0314.gettask.GetAllTasksRequest;
+import s0314.gettask.GetAllTasksResponse;
+import s0314.gettask.TaskXML;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -132,17 +132,17 @@ public class EventRestController {
         return storedEvent.getStores();
     }
 
-    @GetMapping(value= "/test2")
-    public List<TaskXML> test2(){
-
-        GetAllTasksRequest getAllTasksRequest = new GetAllTasksRequest();
-        GetAllTasksResponse getAllTasksResponse = storedEvent.showResponseAllTasks(getAllTasksRequest);
-        log.info("getTaskXMLS().size()"+ getAllTasksResponse.getTaskXMLS().size());
-        return getAllTasksResponse.getTaskXMLS();
-    }
+//    @GetMapping(value= "/test2")
+//    public List<TaskXML> test2(){
+//
+//        GetAllTasksRequest getAllTasksRequest = new GetAllTasksRequest();
+//        GetAllTasksResponse getAllTasksResponse = storedEvent.showResponseAllTasks(getAllTasksRequest);
+//        log.info("getTaskXMLS().size()"+ getAllTasksResponse.getTasks().size());
+//        return getAllTasksResponse.getTasks();
+//    }
 
     @GetMapping(value= "/test3")
-    public List<FullEventDto> test3(){
+    public List<com.alla.getallevents.Event> test3(){
 
         GetAllEventsRequest getAllEventsRequest = new GetAllEventsRequest();
         GetAllEventsResponse getAllTasksResponse = storedEvent.showResponseAllEvents(getAllEventsRequest);

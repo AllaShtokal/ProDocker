@@ -34,24 +34,20 @@ public class FullEventDto implements Serializable {
     
     private Long id;
 
-    @NotNull @XmlElement(required = true)
+    @NotNull
     private String eventType;
 
     @NotNull
     private int powerLoss;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
     private Date startDate;
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
     private Date endDate;
 
     @NotNull
     private Long psId;
 
-    @NotNull @XmlElement(required = true)
+
     private String psName;
 
     @NotNull
