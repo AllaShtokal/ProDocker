@@ -2,23 +2,27 @@ package alla.shtokal.repository;
 
 
 import alla.shtokal.dto.foreigndto.event.AllEventsDto;
+import alla.shtokal.soap.getAllEvents.GetAllEventsRequest;
+import alla.shtokal.soap.getAllEvents.GetAllEventsResponse;
+import alla.shtokal.soap.listtasks.GetAllTasksRequest;
+import alla.shtokal.soap.listtasks.GetAllTasksResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-
-@FeignClient(name = "simple-client", url = "http://S0314:9966")
+@FeignClient(name = "simple-client", url = "http://s0314:8085", configuration = MySoapClientConfiguration.class)
 public interface StoredEvent {
 
     @Headers("")
-    @GetMapping( value = "/power/api/tasks")
-    public AllEventsDto getStores();
+    @GetMapping(value = "/power/api/tasks")
+    AllEventsDto getStores( );
 
-//    @PostMapping(value = "", consumes = MediaType.TEXT_HTML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-//    AddResponse calculate(@RequestBody Add addRequest);
+    @PostMapping(value = "/power/ws", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+    GetAllTasksResponse showResponseAllTasks(GetAllTasksRequest getAllTasksRequest);
+
+    @PostMapping(value = "/ws", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+   GetAllEventsResponse showResponseAllEvents(GetAllEventsRequest getAllEventsRequest);
 
 
 }

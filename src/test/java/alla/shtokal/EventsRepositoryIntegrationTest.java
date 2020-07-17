@@ -39,8 +39,8 @@ public class EventsRepositoryIntegrationTest {
 
     private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-    @LocalServerPort
-    private int port = 8085;
+//    @LocalServerPort
+//    private int port = 8085;
 
     @BeforeEach
     public void init() throws Exception {
@@ -76,7 +76,7 @@ public class EventsRepositoryIntegrationTest {
 
         GetAllTasksRequest getAllEventsRequest = new GetAllTasksRequest();
 
-        GetAllTasksResponse object = (GetAllTasksResponse) ws.marshalSendAndReceive("http://s0314/:" + port + "/power/ws",getAllEventsRequest);
+        GetAllTasksResponse object = (GetAllTasksResponse) ws.marshalSendAndReceive("http://s0314:" + 8085 + "/power/ws",getAllEventsRequest);
         List<TaskXML> mylist = object.getTaskXMLS();
         log.info(" mylist.size() " + mylist.size());
     }
