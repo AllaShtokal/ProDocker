@@ -8,7 +8,7 @@ import com.alla.getallevents.GetAllEventsRequest;
 import com.alla.getallevents.GetAllEventsResponse;
 
 import com.alla.getevent.Event;
-import com.alla.getevent.GetEventByIdRequest;
+import com.alla.getevent.GetEventRequest;
 import com.alla.getevent.GetEventResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -34,9 +34,9 @@ public class EventEndPoint {
     }
 
 
-    @PayloadRoot(namespace = "http://alla.com/getevent",localPart = "getEventByIdRequest")
+    @PayloadRoot(namespace = "http://alla.com/getevent",localPart = "getEventRequest")
     @ResponsePayload
-    public GetEventResponse getEventById(@RequestPayload GetEventByIdRequest getEvent){
+    public GetEventResponse getEventById(@RequestPayload GetEventRequest getEvent){
         FullEventDto eventById = fullEventService.getEventById( getEvent.getId());
         GetEventResponse getEventResponse = new GetEventResponse();
         getEventResponse.setEvent(modelMapper.map(eventById, Event.class));

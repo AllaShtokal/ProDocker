@@ -8,8 +8,6 @@ import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import s0314.gettask.GetAllTasksRequest;
-import s0314.gettask.GetAllTasksResponse;
 
 @FeignClient(name = "simple-client", url = "http://localhost:9966", configuration = MySoapClientConfiguration.class)
 public interface StoredEvent {

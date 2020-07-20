@@ -39,9 +39,14 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 //        Calendar c = Calendar.getInstance();
 //        c.setTime(new Date(event.get().getStartDate().getTime()));
 //        fullEventDto.setStartDate(c);
+
         fullEventDto.setStartDate(new Date(event.get().getStartDate().getTime()));
+
         //fullEventDto.setEndDate(event.get().getEndDate().toLocalDateTime());
         fullEventDto.setEndDate(new Date(event.get().getEndDate().getTime()));
+
+//        fullEventDto.setEndDate( event.get().getEndDate());
+//        fullEventDto.setStartDate(event.get().getStartDate());
 
         fullEventDto.setPsPower(event.get().getStation().getPower());
         fullEventDto.setPsName(event.get().getStation().getName());

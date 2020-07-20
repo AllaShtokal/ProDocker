@@ -122,7 +122,6 @@
             <version>1.2-groovy-2.4</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-spring</artifactId>
@@ -254,9 +253,7 @@
                         <goals>
                             <goal>wsimport</goal>
                         </goals>
-                        <!-- Following configuration will pass all XML files from ${project.basedir}/src/bindings to wsimport. -->
                         <configuration>
-<!--                            <bindingDirectory>${project.basedir}/src/bindings</bindingDirectory>-->
                             <wsdlUrls>
                                 <wsdlUrl>http://s0314:8085/power/ws/task.wsdl</wsdlUrl>
                             </wsdlUrls>

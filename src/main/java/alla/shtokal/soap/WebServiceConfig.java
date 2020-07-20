@@ -38,7 +38,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         CommonsXsdSchemaCollection commonsXsdSchemaCollection = new CommonsXsdSchemaCollection(
                 new ClassPathResource("event.xsd"),
                 new ClassPathResource("allevents.xsd")
-                //,new ClassPathResource("tasks.xsd")
         );
         return commonsXsdSchemaCollection;
     }

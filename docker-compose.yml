@@ -9,13 +9,19 @@ services:
     ports:
       - "3306:3306"
   spring-jpa-app-container:
-    #image: 'shtokala/app:vers1'
-    image: spring-myapp
+    image: 'shtokala/app:latest'
     ports:
       - "9966:9966"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-docker-container:3306/powerst_db?serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "root"
+      spring.rabbitmq.host: rabbitmq
     depends_on:
       - mysql-docker-container
+  rabbitmq:
+    container_name: 'some-rabbit-local'
+    image: 'rabbitmq:latest'
+    environment:
+      - RABBITMQ_DEFAULT_USER=test
+      - RABBITMQ_DEFAULT_PASS=test

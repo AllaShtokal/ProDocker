@@ -30,19 +30,25 @@ import java.util.List;
 public class EventRestController {
 
 
-    private final EventService eventService;
-    private final FullEventDtoService fullEventDtoService;
-    private final PowerStationService powerStationService;
-    private final StoredEvent storedEvent;
+    private  EventService eventService;
+    private  FullEventDtoService fullEventDtoService;
+    private PowerStationService powerStationService;
+    private  StoredEvent storedEvent;
 
 
 
-    public EventRestController(EventService eventService, FullEventDtoService fullEventDtoService, PowerStationService powerStationService, StoredEvent storedEvent) {
+    public EventRestController(EventService eventService,
+                               FullEventDtoService fullEventDtoService,
+                               PowerStationService powerStationService,
+                               StoredEvent storedEvent) {
         this.eventService = eventService;
         this.fullEventDtoService = fullEventDtoService;
         this.powerStationService = powerStationService;
         this.storedEvent = storedEvent;
     }
+
+
+
 
     //getById
     @GetMapping(value = "/{id}")

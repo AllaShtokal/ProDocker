@@ -4,7 +4,7 @@
            targetNamespace="http://alla.com/getevent"
 >
 
-    <xs:element name="getEventByIdRequest">
+    <xs:element name="getEventRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:long" />

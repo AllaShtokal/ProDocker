@@ -4,15 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 
 @Setter
@@ -53,8 +47,17 @@ public class FullEventDto implements Serializable {
     @NotNull
     private int psPower;
 
-    public FullEventDto(Long id) {
+    public FullEventDto(Long id, @NotNull String eventType, @NotNull int powerLoss, Date startDate, Date endDate, @NotNull Long psId, String psName, @NotNull int psPower) {
+        this.id = id;
+        this.eventType = eventType;
+        this.powerLoss = powerLoss;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.psId = psId;
+        this.psName = psName;
+        this.psPower = psPower;
     }
+
 
     public FullEventDto() {
 
