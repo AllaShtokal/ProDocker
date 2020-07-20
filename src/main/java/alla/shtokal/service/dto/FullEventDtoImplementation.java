@@ -28,7 +28,7 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 
     @Override
     public FullEventDto getEventById(Long id) {
-        Optional<Event> event = eventRepository.findById(id);
+        Optional<Event> event = Optional.ofNullable(eventRepository.findById(id).orElse(null));
 
         FullEventDto fullEventDto = new FullEventDto();
 
@@ -56,7 +56,7 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 
     }
 
-    //save all fulleventdTOS
+    //save all eventdTOS from Mateusz
 //    @Override
 //    @Transactional
 //    public List<EventDTO> addll() {
@@ -80,6 +80,8 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 //        return eventRepository.saveAll(eventsE);
 //
 //    }
+
+
 
     @Override
     public Collection<FullEventDto> getAllEventDto() {
@@ -110,4 +112,6 @@ public class FullEventDtoImplementation implements FullEventDtoService {
         return eventsDto;
 
     }
+
+
 }

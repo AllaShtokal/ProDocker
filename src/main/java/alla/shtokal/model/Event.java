@@ -1,8 +1,11 @@
 package alla.shtokal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.checkerframework.checker.formatter.qual.Format;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,9 +34,11 @@ public class Event extends BaseEntity implements Serializable {
     @Column(name = "ubytek_mocy")
     private int powerLoss;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "data_rozpoczecia")
     private Timestamp startDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "data_zakonczenia")
     private Timestamp endDate;
 
@@ -68,6 +73,15 @@ public class Event extends BaseEntity implements Serializable {
         this.eventType = eventType;
         this.id = id;  }
 
-
-
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", station=" + station +
+                ", eventType='" + eventType + '\'' +
+                ", powerLoss=" + powerLoss +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }
