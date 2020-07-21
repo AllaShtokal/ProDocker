@@ -1,4 +1,4 @@
-package alla.shtokal.service;
+package alla.shtokal.service.event;
 import alla.shtokal.model.Event;
 
 import java.util.Collection;

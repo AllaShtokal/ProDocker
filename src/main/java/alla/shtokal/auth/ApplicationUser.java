@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class ApplicationUser implements UserDetails {
 
-    private  final Set<? extends GrantedAuthority> grantedAuthorities;
-    private  final String password;
-    private  final String username;
+    private final Set<? extends GrantedAuthority> grantedAuthorities;
+    private final String password;
+    private final String username;
     private final boolean isAccountNonLocked;
     private final boolean isAccountNonExpired;
     private final boolean isCredentionalsNonExpired;

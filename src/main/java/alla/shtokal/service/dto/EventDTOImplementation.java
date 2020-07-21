@@ -1,58 +1,70 @@
 package alla.shtokal.service.dto;
 
-import alla.shtokal.dto.foreigndto.event.EventDTO;
-import alla.shtokal.dto.mydto.FullEventDto;
+import alla.shtokal.dto.mydto.EventDTO;
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.EventRepository;
 import alla.shtokal.repository.PowerStationRepository;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
-public class FullEventDtoImplementation implements FullEventDtoService {
+@Log4j2
+public class EventDTOImplementation implements EventDTOService {
 
 
     private EventRepository eventRepository;
     private PowerStationRepository powerStationRepository;
     private final ModelMapper mapper;
 
-    public FullEventDtoImplementation(EventRepository eventRepository, PowerStationRepository powerStationRepository, ModelMapper mapper) {
+    public EventDTOImplementation(EventRepository eventRepository, PowerStationRepository powerStationRepository, ModelMapper mapper) {
         this.eventRepository = eventRepository;
         this.powerStationRepository = powerStationRepository;
         this.mapper = mapper;
     }
 
     @Override
-    public FullEventDto getEventById(Long id) {
+    @Transactional
+    public Long add(EventDTO eventDTO) {
+
+        Optional<PowerStation> p = powerStationRepository.findById(eventDTO.getPsId());
+        Event e = mapper.map(eventDTO, Event.class);
+        p.ifPresent(powerStation -> {
+            powerStation.addEvent(e);
+            powerStationRepository.save(powerStation);
+        });
+        Event topByOrderByIdDesc = eventRepository.findTopByOrderByIdDesc();
+        return topByOrderByIdDesc.getId();
+
+    }
+
+    @Override
+    public void delete(Long id) {
+        eventRepository.deleteById(id);
+    }
+
+    @Override
+    public EventDTO getEventById(Long id) {
         Optional<Event> event = Optional.ofNullable(eventRepository.findById(id).orElse(null));
 
-        FullEventDto fullEventDto = new FullEventDto();
+        EventDTO eventDTO = new EventDTO();
 
-        fullEventDto.setId(event.get().getId());
-        fullEventDto.setEventType(event.get().getEventType());
-        fullEventDto.setPowerLoss(event.get().getPowerLoss());
+        eventDTO.setId(event.get().getId());
+        eventDTO.setEventType(event.get().getEventType());
+        eventDTO.setPowerLoss(event.get().getPowerLoss());
+        eventDTO.setStartDate(event.get().getStartDate());
+        eventDTO.setEndDate(event.get().getEndDate());
 
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(new Date(event.get().getStartDate().getTime()));
-//        fullEventDto.setStartDate(c);
+        eventDTO.setPsPower(event.get().getStation().getPower());
+        eventDTO.setPsName(event.get().getStation().getName());
+        eventDTO.setPsId(event.get().getStation().getId());
 
-        fullEventDto.setStartDate(new Date(event.get().getStartDate().getTime()));
-
-        //fullEventDto.setEndDate(event.get().getEndDate().toLocalDateTime());
-        fullEventDto.setEndDate(new Date(event.get().getEndDate().getTime()));
-
-//        fullEventDto.setEndDate( event.get().getEndDate());
-//        fullEventDto.setStartDate(event.get().getStartDate());
-
-        fullEventDto.setPsPower(event.get().getStation().getPower());
-        fullEventDto.setPsName(event.get().getStation().getName());
-        fullEventDto.setPsId(event.get().getStation().getId());
-
-        return fullEventDto;
+        return eventDTO;
 
     }
 
@@ -82,16 +94,15 @@ public class FullEventDtoImplementation implements FullEventDtoService {
 //    }
 
 
-
     @Override
-    public Collection<FullEventDto> getAllEventDto() {
+    public Collection<EventDTO> getAllEventDto() {
 
         List<Event> events = eventRepository.findAll();
-        List<FullEventDto> eventsDto = new ArrayList<>();
+        List<EventDTO> eventsDto = new ArrayList<>();
 
         for (Event event : events) {
 
-            FullEventDto fullevent = new FullEventDto();
+            EventDTO fullevent = new EventDTO();
 
             fullevent.setPsId(event.getStation().getId());
             fullevent.setPsName(event.getStation().getName());
@@ -101,7 +112,7 @@ public class FullEventDtoImplementation implements FullEventDtoService {
             fullevent.setEventType(event.getEventType());
             fullevent.setPowerLoss(event.getPowerLoss());
 
-            fullevent.setEndDate( event.getEndDate());
+            fullevent.setEndDate(event.getEndDate());
             fullevent.setStartDate(event.getStartDate());
 
 

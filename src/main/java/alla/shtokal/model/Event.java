@@ -45,6 +45,14 @@ public class Event extends BaseEntity implements Serializable {
     public Event() {
     }
 
+    public Event(Long id, PowerStation station, String eventType , int powerLoss, Timestamp startDate, Timestamp endDate) {
+        this.id = id;
+        this.station = station;
+        this.eventType = eventType;
+        this.powerLoss = powerLoss;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public Event(PowerStation station, String eventType, int powerLoss, Timestamp startDate, Timestamp endDate) {
         this.station = station;

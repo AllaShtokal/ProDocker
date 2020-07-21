@@ -1,9 +1,9 @@
 package alla.shtokal.soap;
 
 
-import alla.shtokal.dto.mydto.FullEventDto;
-import alla.shtokal.service.EventImplementation;
-import alla.shtokal.service.dto.FullEventDtoImplementation;
+import alla.shtokal.dto.mydto.EventDTO;
+import alla.shtokal.service.event.EventImplementation;
+import alla.shtokal.service.dto.EventDTOImplementation;
 import com.alla.getallevents.GetAllEventsRequest;
 import com.alla.getallevents.GetAllEventsResponse;
 
@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 @Endpoint
 public class EventEndPoint {
 
-    private final FullEventDtoImplementation fullEventService;
+    private final EventDTOImplementation fullEventService;
     private final EventImplementation eventImplementation;
     private final ModelMapper modelMapper;
 
-    public EventEndPoint(FullEventDtoImplementation eventService, EventImplementation eventImplementation, ModelMapper modelMapper) {
+    public EventEndPoint(EventDTOImplementation eventService, EventImplementation eventImplementation, ModelMapper modelMapper) {
         this.fullEventService = eventService;
         this.eventImplementation = eventImplementation;
         this.modelMapper = modelMapper;
@@ -37,7 +37,7 @@ public class EventEndPoint {
     @PayloadRoot(namespace = "http://alla.com/getevent",localPart = "getEventRequest")
     @ResponsePayload
     public GetEventResponse getEventById(@RequestPayload GetEventRequest getEvent){
-        FullEventDto eventById = fullEventService.getEventById( getEvent.getId());
+        EventDTO eventById = fullEventService.getEventById( getEvent.getId());
         GetEventResponse getEventResponse = new GetEventResponse();
         getEventResponse.setEvent(modelMapper.map(eventById, Event.class));
         return getEventResponse;
@@ -46,12 +46,12 @@ public class EventEndPoint {
     @PayloadRoot(namespace = "http://alla.com/getallevents",localPart = "getAllEventsRequest")
     @ResponsePayload
     public GetAllEventsResponse getAllEvents(@RequestPayload GetAllEventsRequest getAllEvents){
-        List<FullEventDto> eventList = new ArrayList<>();
+        List<EventDTO> eventList = new ArrayList<>();
 
-        eventList = (List<FullEventDto>) fullEventService.getAllEventDto();
+        eventList = (List<EventDTO>) fullEventService.getAllEventDto();
         GetAllEventsResponse getAllEventsResponse = new GetAllEventsResponse();
-        List<com.alla.getallevents.Event> collect = eventList.stream().map(fullEventDto -> {
-            com.alla.getallevents.Event map = modelMapper.map(fullEventDto, com.alla.getallevents.Event.class);
+        List<com.alla.getallevents.Event> collect = eventList.stream().map(eventDTO -> {
+            com.alla.getallevents.Event map = modelMapper.map(eventDTO, com.alla.getallevents.Event.class);
             return map;
         }).collect(Collectors.toList());
 

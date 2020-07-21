@@ -1,8 +1,7 @@
 package alla.shtokal.rest;
 
 import alla.shtokal.model.PowerStation;
-import alla.shtokal.service.PowerStationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import alla.shtokal.service.station.PowerStationService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,16 @@ import java.util.List;
 @RequestMapping("/api/v1/stations")
 public class PowerStationRestController {
 
-    @Autowired
-    private PowerStationService powerStationService;
 
-    //getById
+    private final PowerStationService powerStationService;
+
+    public PowerStationRestController(PowerStationService powerStationService) {
+        this.powerStationService = powerStationService;
+    }
+
+    /**
+     * Get Station By Id
+     **/
     @GetMapping(value = "/{id}")
     public ResponseEntity<PowerStation> getPowerStation( @PathVariable("id")  Long powerStationId) {
         if (powerStationId == null) {
@@ -30,7 +35,9 @@ public class PowerStationRestController {
         return new ResponseEntity<>(powerStation, HttpStatus.OK);
     }
 
-    //getAll
+    /**
+     * Get All Stations
+     **/
     @GetMapping(value = "")
     public ResponseEntity<List<PowerStation>> getAllPowerStations() {
         List<PowerStation> stations = (List<PowerStation>) this.powerStationService.getAllPowerStations();
@@ -40,7 +47,9 @@ public class PowerStationRestController {
         return new ResponseEntity<>(stations, HttpStatus.OK);
     }
 
-    //deleteById
+    /**
+     * Delete Station By Id
+     **/
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<PowerStation> deleteStation(@PathVariable("id") Long id) {
         PowerStation station = this.powerStationService.getById(id);
@@ -54,7 +63,9 @@ public class PowerStationRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //POST add new object
+    /**
+     * Add Station
+     **/
     @PostMapping(value = "/add")
     public ResponseEntity<PowerStation> saveStation(@Validated @RequestBody  PowerStation station) {
         HttpHeaders headers = new HttpHeaders();
@@ -65,6 +76,9 @@ public class PowerStationRestController {
         return new ResponseEntity<>(station, headers, HttpStatus.CREATED);
     }
 
+    /**
+     * Update Station By Id
+     **/
     @PutMapping(value = "/update")
     public ResponseEntity<PowerStation> updateCustomer(
             @PathVariable("id") Long id, @RequestBody PowerStation stationDetails) {

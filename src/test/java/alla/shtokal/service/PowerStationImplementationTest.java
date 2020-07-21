@@ -1,10 +1,9 @@
 package alla.shtokal.service;
 
-import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
-import alla.shtokal.repository.EventRepository;
 import alla.shtokal.repository.PowerStationRepository;
 
+import alla.shtokal.service.station.PowerStationImplementation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package alla.shtokal.service;
+package alla.shtokal.service.station;
 
 import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;

@@ -1,7 +1,7 @@
 package alla.shtokal.repository;
 
 
-import alla.shtokal.dto.foreigndto.event.AllEventsDto;
+import alla.shtokal.dto.foreigndto.event.AllTasksDTO;
 import com.alla.getallevents.GetAllEventsRequest;
 import com.alla.getallevents.GetAllEventsResponse;
 import feign.Headers;
@@ -14,7 +14,7 @@ public interface StoredEvent {
 
     @Headers("")
     @GetMapping(value = "/power/api/tasks")
-    AllEventsDto getStores( );
+    AllTasksDTO getStores( );
 
 //    @PostMapping(value = "/power/ws", consumewss = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
 //    GetAllTasksResponse showResponseAllTasks(GetAllTasksRequest getAllTasksRequest);

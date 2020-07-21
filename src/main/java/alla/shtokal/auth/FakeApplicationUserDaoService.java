@@ -16,19 +16,19 @@ public class FakeApplicationUserDaoService implements ApplicationUserDao {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public FakeApplicationUserDaoService(PasswordEncoder passwordEncoder){
+    public FakeApplicationUserDaoService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Optional<ApplicationUser> selectApplicationUserByUsername(String username) {
         return getApplicationUsers()
-                    .stream()
-                    .filter(applicationUser -> username.equals(applicationUser.getUsername()))
-                    .findFirst();
+                .stream()
+                .filter(applicationUser -> username.equals(applicationUser.getUsername()))
+                .findFirst();
     }
 
-    private List<ApplicationUser> getApplicationUsers(){
+    private List<ApplicationUser> getApplicationUsers() {
         List<ApplicationUser> applicationUsers = Lists.newArrayList(
                 new ApplicationUser(
                         "alla",

@@ -19,11 +19,10 @@ public class PowerStation extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    //@NotNull(message = "validation message")
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "station")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "station")
     @JsonManagedReference
     private List<Event> events;
 
@@ -45,6 +44,7 @@ public class PowerStation extends BaseEntity implements Serializable {
 
     public void addEvent(Event ev) {
         this.events.add(ev);
+        ev.setStation(this);
 
     }
 }

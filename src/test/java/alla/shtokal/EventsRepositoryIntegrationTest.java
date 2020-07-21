@@ -1,7 +1,7 @@
 package alla.shtokal;
 
-import alla.shtokal.dto.foreigndto.event.AllEventsDto;
-import alla.shtokal.dto.foreigndto.event.EventDTO;
+import alla.shtokal.dto.foreigndto.event.AllTasksDTO;
+import alla.shtokal.dto.foreigndto.event.TaskDTO;
 import alla.shtokal.model.Event;
 
 import com.alla.getallevents.GetAllEventsRequest;
@@ -106,9 +106,9 @@ public class EventsRepositoryIntegrationTest {
         RestTemplate restTemplate = new RestTemplate();
         String Url
                 = "http://S0314:8085/power/api/tasks/?page=0&size=30";
-        ResponseEntity<AllEventsDto> forEntity = restTemplate.getForEntity(Url, AllEventsDto.class);
+        ResponseEntity<AllTasksDTO> forEntity = restTemplate.getForEntity(Url, AllTasksDTO.class);
 
-        List<EventDTO> awaria = forEntity.getBody().getContent()
+        List<TaskDTO> awaria = forEntity.getBody().getContent()
                 .stream().peek(eventDto -> System.out.println(eventDto.getNamePowerStation()))
                 .filter(eventDto -> eventDto.getTaskType().toString().equals("AWARIA")).limit(100)
                 .collect(Collectors.toList());
