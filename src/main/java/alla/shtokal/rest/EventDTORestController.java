@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
 @RestController
 @Log4j2
 @RequestMapping(value = "/api/v1/events/eventsdto")
@@ -45,7 +45,7 @@ public class EventDTORestController {
      * getEventDTOById
      **/
     @GetMapping(value = "/{id}")
-    public ResponseEntity<EventDTO> getEventDTO(@PathVariable("id") Long eventId) {
+    public ResponseEntity<List<EventDTO>> getEventDTO(@PathVariable("id") Long eventId) {
         if (eventId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -53,7 +53,9 @@ public class EventDTORestController {
         if (event == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(event, HttpStatus.OK);
+        List<EventDTO> list = new ArrayList<>();
+        list.add(event);
+        return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
 
@@ -66,7 +68,9 @@ public class EventDTORestController {
         HttpHeaders headers = new HttpHeaders();
         Long id = this.eventDTOService.add(eventDTO);
 
+
         EventDTO eventById = eventDTOService.getEventById(id);
+
 
 
         return new ResponseEntity<>(eventById, headers, HttpStatus.CREATED);
