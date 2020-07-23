@@ -11,6 +11,6 @@ public interface PowerStationService {
     PowerStation getById(Long id);
     void add(PowerStation powerStation);
     void delete(Long id);
-    Collection<PowerStation> getAllPowerStations();
+    Collection<PowerStation> getAll();
     Map<Long, Integer> getPowerMapByDate(Timestamp time);
 }

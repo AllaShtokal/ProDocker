@@ -20,8 +20,6 @@
         </xs:complexType>
     </xs:element>
 
-
-
     <xs:complexType name="event">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>

@@ -75,7 +75,7 @@ class EventDTORestControllerSpec extends Specification {
     void 'getAllEventDto api should return a list of events'() {
 
         given:
-        eventDTOService.getAllEventDto() >> [ev1, ev2]
+        eventDTOService.getAll() >> [ev1, ev2]
 
         and:
         def response = [ev1JsonString, ev2JsonString].toString()
@@ -90,7 +90,7 @@ class EventDTORestControllerSpec extends Specification {
     void 'getEventDTOById  should return eventDTO by id'() {
 
         given:
-        eventDTOService.getEventById(1) >> ev1
+        eventDTOService.getById(1) >> ev1
 
         expect:
         mockMvc.perform(MockMvcRequestBuilders
@@ -103,7 +103,7 @@ class EventDTORestControllerSpec extends Specification {
 
         given:
         eventDTOService.add(_ as EventDTO) >> 10
-        eventDTOService.getEventById(10) >> ev3
+        eventDTOService.getById(10) >> ev3
 
         expect:
         mockMvc.perform(MockMvcRequestBuilders
@@ -116,7 +116,7 @@ class EventDTORestControllerSpec extends Specification {
     void '/delete  should delete event'() {
 
         given:
-        eventDTOService.getEventById(1) >> ev1
+        eventDTOService.getById(1) >> ev1
         eventDTOService.delete(1) >> null
 
         expect:

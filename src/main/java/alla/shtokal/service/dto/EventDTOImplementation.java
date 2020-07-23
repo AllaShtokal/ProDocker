@@ -49,7 +49,7 @@ public class EventDTOImplementation implements EventDTOService {
     }
 
     @Override
-    public EventDTO getEventById(Long id) {
+    public EventDTO getById(Long id) {
 
         Event event = eventRepository.findById(id).get();
         EventDTO eventDTO = modelMapper.map(event, EventDTO.class);
@@ -62,7 +62,7 @@ public class EventDTOImplementation implements EventDTOService {
     }
 
     @Override
-    public Collection<EventDTO> getAllEventDto() {
+    public Collection<EventDTO> getAll() {
 
         List<Event> events = eventRepository.findAll();
         List<EventDTO> eventsDto = new ArrayList<>();

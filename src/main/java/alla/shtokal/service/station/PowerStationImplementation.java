@@ -45,7 +45,7 @@ public class PowerStationImplementation implements PowerStationService {
     }
 
     @Override
-    public Collection<PowerStation> getAllPowerStations() {
+    public Collection<PowerStation> getAll() {
         return powerStationRepository.findAll();
     }
 
@@ -58,7 +58,7 @@ public class PowerStationImplementation implements PowerStationService {
     @Override
     public Map<Long, Integer> getPowerMapByDate(Timestamp time) {
         Map<Long, Integer> powerMap = new HashMap<>();
-        List<PowerStation> stations = (List<PowerStation>) getAllPowerStations();
+        List<PowerStation> stations = (List<PowerStation>) getAll();
         for (PowerStation station : stations) {
             int power = station.getPower();
             List<Event> eventsForCurrentStation = station.getEvents();

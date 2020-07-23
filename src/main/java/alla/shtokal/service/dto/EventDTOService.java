@@ -5,8 +5,8 @@ import java.util.Collection;
 
 
 public interface EventDTOService {
-    Collection<EventDTO> getAllEventDto();
-    EventDTO getEventById(Long id);
+    Collection<EventDTO> getAll();
+    EventDTO getById(Long id);
     Long add(EventDTO event);
     void delete(Long id);
 }

@@ -80,7 +80,7 @@ public class EventImplementation implements EventService {
     }
 
     @Override
-    public Collection<Event> getAllEvents() {
+    public Collection<Event> getAll() {
 
         return eventRepository.findAll();}
 
@@ -90,11 +90,11 @@ public class EventImplementation implements EventService {
      */
 
     @Override
-    public int getNumberOfAwariaEventsById(Long id) {
+    public int getNumberOfAwariaEventsById(Long powerStationId) {
         int num = 0;
-        List<Event> events = (List<Event>) getAllEvents();
+        List<Event> events = (List<Event>) getAll();
         for (Event item : events) {
-            if (item.getStation().getId().equals(id) && item.getEventType().equals("AWARIA"))
+            if (item.getStation().getId().equals(powerStationId) && item.getEventType().equals("AWARIA"))
                 num++;
         }
         return num;    }

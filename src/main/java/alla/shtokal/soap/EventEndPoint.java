@@ -37,7 +37,7 @@ public class EventEndPoint {
     @PayloadRoot(namespace = "http://alla.com/getevent",localPart = "getEventRequest")
     @ResponsePayload
     public GetEventResponse getEventById(@RequestPayload GetEventRequest getEvent){
-        EventDTO eventById = fullEventService.getEventById( getEvent.getId());
+        EventDTO eventById = fullEventService.getById( getEvent.getId());
         GetEventResponse getEventResponse = new GetEventResponse();
         getEventResponse.setEvent(modelMapper.map(eventById, Event.class));
         return getEventResponse;
@@ -48,7 +48,7 @@ public class EventEndPoint {
     public GetAllEventsResponse getAllEvents(@RequestPayload GetAllEventsRequest getAllEvents){
         List<EventDTO> eventList = new ArrayList<>();
 
-        eventList = (List<EventDTO>) fullEventService.getAllEventDto();
+        eventList = (List<EventDTO>) fullEventService.getAll();
         GetAllEventsResponse getAllEventsResponse = new GetAllEventsResponse();
         List<com.alla.getallevents.Event> collect = eventList.stream().map(eventDTO -> {
             com.alla.getallevents.Event map = modelMapper.map(eventDTO, com.alla.getallevents.Event.class);

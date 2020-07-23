@@ -10,7 +10,7 @@ public interface EventService {
     Event getById(Long id);
     void add(Event event);
     void delete(Long id);
-    Collection<Event> getAllEvents();
-    int getNumberOfAwariaEventsById(Long id);
+    Collection<Event> getAll();
+    int getNumberOfAwariaEventsById(Long powerStationId);
 
 }

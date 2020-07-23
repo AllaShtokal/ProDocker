@@ -1,5 +1,6 @@
 package alla.shtokal.dto.mydto;
 
+import alla.shtokal.rest.EventDTORestController;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;

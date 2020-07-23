@@ -40,7 +40,7 @@ public class EventRestController {
      * get ById
      **/
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Event> getEvent(@PathVariable("id") Long eventId) {
+    public ResponseEntity<Event> getByID(@PathVariable("id") Long eventId) {
         if (eventId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -58,8 +58,8 @@ public class EventRestController {
      **/
     @LogController
     @GetMapping(value = "")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = (List<Event>) this.eventService.getAllEvents();
+    public ResponseEntity<List<Event>> getAll() {
+        List<Event> events = (List<Event>) this.eventService.getAll();
 
 
         if (events.isEmpty()) {
@@ -73,10 +73,9 @@ public class EventRestController {
      *  add new object
      **/
     @PostMapping(value = "/add")
-    public ResponseEntity<Event> saveEvent(@RequestBody Event event, @RequestParam("id") Long id) {
+    public ResponseEntity<Event> save(@RequestBody Event event, @RequestParam("id") Long id) {
         event.setStation(this.powerStationService.getById(id));
         HttpHeaders headers = new HttpHeaders();
-
         this.eventService.add(event);
         return new ResponseEntity<>(event, headers, HttpStatus.CREATED);
     }
@@ -86,7 +85,7 @@ public class EventRestController {
      **/
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<PowerStation> deleteEvent(@PathVariable("id") Long id) {
+    public ResponseEntity<PowerStation> delete(@PathVariable("id") Long id) {
         Event event = this.eventService.getById(id);
 
         if (event == null) {
@@ -97,11 +96,6 @@ public class EventRestController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
-
-
-
 
     /**
      * API just for Test

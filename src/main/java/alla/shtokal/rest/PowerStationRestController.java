@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class PowerStationRestController {
      * Get Station By Id
      **/
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<PowerStation>> getPowerStation( @PathVariable("id")  Long powerStationId) {
+    public ResponseEntity<List<PowerStation>> getById(@PathVariable("id")  Long powerStationId) {
         if (powerStationId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -46,8 +44,8 @@ public class PowerStationRestController {
      * Get All Stations
      **/
     @GetMapping(value = "")
-    public ResponseEntity<List<PowerStation>> getAllPowerStations() {
-        List<PowerStation> stations = (List<PowerStation>) this.powerStationService.getAllPowerStations();
+    public ResponseEntity<List<PowerStation>> getAll() {
+        List<PowerStation> stations = (List<PowerStation>) this.powerStationService.getAll();
         if (stations.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -58,7 +56,7 @@ public class PowerStationRestController {
      * Delete Station By Id
      **/
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<PowerStation> deleteStation(@PathVariable("id") Long id) {
+    public ResponseEntity<PowerStation> delete(@PathVariable("id") Long id) {
         PowerStation station = this.powerStationService.getById(id);
 
         if (station == null) {
@@ -74,7 +72,7 @@ public class PowerStationRestController {
      * Add Station
      **/
     @PostMapping(value = "/add")
-    public ResponseEntity<PowerStation> saveStation(@Validated @RequestBody  PowerStation station) {
+    public ResponseEntity<PowerStation> save(@Validated @RequestBody  PowerStation station) {
         HttpHeaders headers = new HttpHeaders();
         if (station == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,7 +85,7 @@ public class PowerStationRestController {
      * Update Station By Id
      **/
     @PutMapping(value = "/update")
-    public ResponseEntity<PowerStation> updateCustomer(
+    public ResponseEntity<PowerStation> update(
             @PathVariable("id") Long id, @RequestBody PowerStation stationDetails) {
         HttpHeaders headers = new HttpHeaders();
         PowerStation powerStation = this.powerStationService.getById(id);

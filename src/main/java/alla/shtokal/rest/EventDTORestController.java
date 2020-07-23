@@ -28,10 +28,10 @@ public class EventDTORestController {
 
     @LogController
     @GetMapping(value = "")
-    public ResponseEntity<List<EventDTO>> getAllEventsDTO() {
+    public ResponseEntity<List<EventDTO>> getAll() {
 
 
-        List<EventDTO> events = (List<EventDTO>) this.eventDTOService.getAllEventDto();
+        List<EventDTO> events = (List<EventDTO>) this.eventDTOService.getAll();
 
         if (events.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -45,11 +45,11 @@ public class EventDTORestController {
      * getEventDTOById
      **/
     @GetMapping(value = "/{id}")
-    public ResponseEntity<List<EventDTO>> getEventDTO(@PathVariable("id") Long eventId) {
+    public ResponseEntity<List<EventDTO>> getById(@PathVariable("id") Long eventId) {
         if (eventId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        EventDTO event = this.eventDTOService.getEventById(eventId);
+        EventDTO event = this.eventDTOService.getById(eventId);
         if (event == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -63,13 +63,13 @@ public class EventDTORestController {
      * add new object
      **/
     @PostMapping(value = "")
-    public ResponseEntity<EventDTO> saveEvent(@RequestBody EventDTO eventDTO) {
+    public ResponseEntity<EventDTO> save(@RequestBody EventDTO eventDTO) {
 
         HttpHeaders headers = new HttpHeaders();
         Long id = this.eventDTOService.add(eventDTO);
 
 
-        EventDTO eventById = eventDTOService.getEventById(id);
+        EventDTO eventById = eventDTOService.getById(id);
 
 
 
@@ -81,8 +81,8 @@ public class EventDTORestController {
      **/
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<EventDTO> deleteEvent(@PathVariable("id") Long id) {
-        EventDTO eventDTO = this.eventDTOService.getEventById(id);
+    public ResponseEntity<EventDTO> delete(@PathVariable("id") Long id) {
+        EventDTO eventDTO = this.eventDTOService.getById(id);
 
         if (eventDTO == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
