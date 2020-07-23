@@ -78,6 +78,12 @@ public class Event extends BaseEntity implements Serializable {
         this.eventType = eventType;
         this.id = id;  }
 
+    public Event( String eventType, Long id,PowerStation ps) {
+
+        this.eventType = eventType;
+        this.id = id;
+         this.station =ps;}
+
     @Override
     public String toString() {
         return "Event{" +

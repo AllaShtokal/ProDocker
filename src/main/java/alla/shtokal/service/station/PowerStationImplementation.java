@@ -19,8 +19,6 @@ public class PowerStationImplementation implements PowerStationService {
 
     private final PowerStationRepository powerStationRepository;
 
-
-
     public PowerStationImplementation(PowerStationRepository powerStationRepository) {
         this.powerStationRepository = powerStationRepository;
     }
@@ -56,6 +54,7 @@ public class PowerStationImplementation implements PowerStationService {
      * a zwracającą mapę, w której kluczami będą ID elektrowni,
      * a wartościami moc na dany dzień.
      */
+
     @Override
     public Map<Long, Integer> getPowerMapByDate(Timestamp time) {
         Map<Long, Integer> powerMap = new HashMap<>();

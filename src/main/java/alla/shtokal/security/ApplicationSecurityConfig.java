@@ -37,9 +37,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService,
-                                     SecretKey secretKey,
-                                     JwtConfig jwtConfig) {
+                                     ApplicationUserService applicationUserService
+                                     ) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
     }
@@ -57,8 +56,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-               // .hasIpAddress("192.168.169.63").and()
-               // .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
+                // .hasIpAddress("192.168.169.63").and()
+                // .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
                 //.addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 //.authorizeRequests()
                 //.antMatchers("/**", "index", "/css/*", "/js/*").permitAll()
@@ -74,7 +73,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
@@ -86,8 +85,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Access-Control-Allow-Origin","Access-Control-Request-Method", "Access-Control-Request-Headers","Origin","Cache-Control", "Content-Type", "Authorization"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Origin", "Cache-Control",
+                "Content-Type",
+                "Authorization"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

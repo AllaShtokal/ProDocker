@@ -40,9 +40,6 @@ public class EventImplementation implements EventService {
         Optional<Event> optionalEvent = eventRepository.findById(id);
 
         return optionalEvent.orElseGet(Event::new);
-        //eventRepository.getOne()
-        //return  eventRepository.findById(id).get();
-              //  eventRepository.findById(id).get();
     }
 
     @Override
@@ -85,9 +82,7 @@ public class EventImplementation implements EventService {
     @Override
     public Collection<Event> getAllEvents() {
 
-        return eventRepository.findAll();
-
-    }
+        return eventRepository.findAll();}
 
     /**
      * a)	Należy przygotować metodę, która zliczy ilość zdarzeń
@@ -102,8 +97,5 @@ public class EventImplementation implements EventService {
             if (item.getStation().getId().equals(id) && item.getEventType().equals("AWARIA"))
                 num++;
         }
-        return num;
-    }
-
-
+        return num;    }
 }

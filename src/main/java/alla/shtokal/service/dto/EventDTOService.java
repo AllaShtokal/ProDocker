@@ -1,8 +1,6 @@
 package alla.shtokal.service.dto;
 
 import alla.shtokal.dto.mydto.EventDTO;
-import alla.shtokal.model.Event;
-
 import java.util.Collection;
 
 

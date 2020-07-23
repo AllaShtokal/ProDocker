@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -24,7 +28,7 @@ public class PowerStationRestController {
      * Get Station By Id
      **/
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PowerStation> getPowerStation( @PathVariable("id")  Long powerStationId) {
+    public ResponseEntity<List<PowerStation>> getPowerStation( @PathVariable("id")  Long powerStationId) {
         if (powerStationId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -32,7 +36,10 @@ public class PowerStationRestController {
         if (powerStation == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(powerStation, HttpStatus.OK);
+//        List<PowerStation> powerStationList = new ArrayList<>();
+//        powerStationList.add(powerStation);
+
+        return new ResponseEntity<>(Collections.singletonList(powerStation), HttpStatus.OK);
     }
 
     /**
@@ -91,6 +98,7 @@ public class PowerStationRestController {
         powerStation.setPower(stationDetails.getPower());
 
         this.powerStationService.add(powerStation);
+
         return new ResponseEntity<>(powerStation, headers, HttpStatus.OK);
     }
 

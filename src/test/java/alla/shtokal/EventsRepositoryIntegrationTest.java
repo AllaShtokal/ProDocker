@@ -91,7 +91,6 @@ public class EventsRepositoryIntegrationTest {
     }
 
     @Test
-    @Disabled("")
     public void test1() {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl
@@ -101,7 +100,7 @@ public class EventsRepositoryIntegrationTest {
 
     }
 
-    @Test @Disabled("")
+    @Test
     public void test2() {
         RestTemplate restTemplate = new RestTemplate();
         String Url
@@ -114,20 +113,10 @@ public class EventsRepositoryIntegrationTest {
                 .collect(Collectors.toList());
 
 
-//        List<Event> eventsE = new ArrayList<>();
-//        for (EventDto e : awaria) {
-//           // PowerStation p = powerStationRepository.findFirstByName(e.getNamePowerStation());
-//            if (p != null) {
-//                Event event = new Event(p, e.getTaskType().toString(), e.getPowerLoss(), e.getStartDate(), e.getEndDate());
-//                eventsE.add(event);
-//            }
-//        }
-
 
     }
 
     @Test
-    @Disabled("")
     public void testAddEvent() {
         MultiValueMap<String, String> mapauth = new LinkedMultiValueMap<>();
         List<String> strings = List.of("Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJzdGF0aW9uczp3cml0ZSJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiZXZlbnRzOnJlYWQifSx7ImF1dGhvcml0eSI6ImV2ZW50czp3cml0ZSJ9LHsiYXV0aG9yaXR5Ijoic3RhdGlvbnM6cmVhZCJ9XSwiaWF0IjoxNTk0MjkzNDY1LCJleHAiOjE1OTUxMDk2MDB9.Fk_PnPYyFC6-Rnf0Twi5RHalo_b6wYTexjswL6sM1o5Wv-RnlxYAGifshw-ctv5qcdhTnn1FxmgDd8Jr0Vuu9A");
@@ -149,7 +138,7 @@ public class EventsRepositoryIntegrationTest {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Test @Disabled("")
+    @Test
     public void testRabbit() {
 
         rabbitTemplate.convertAndSend("eggs", "message11");

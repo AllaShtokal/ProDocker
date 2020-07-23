@@ -41,6 +41,11 @@ public class PowerStation extends BaseEntity implements Serializable {
 
         this.power = power;
     }
+    public PowerStation(Long id,String name, int power) {
+        this.name = name;
+        this.id = id;
+        this.power = power;
+    }
 
     public void addEvent(Event ev) {
         this.events.add(ev);

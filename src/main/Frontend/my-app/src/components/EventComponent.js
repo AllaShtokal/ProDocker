@@ -22,7 +22,6 @@ class EventComponent extends React.Component {
             this.setState({events: response.data})
         });
         event.preventDefault();
-
     }
 
     myChangeHandler = (event) => {
