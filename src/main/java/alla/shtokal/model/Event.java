@@ -4,39 +4,53 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
+
 @Entity
 @Getter
 @Setter
 @Table(name = "zdarzenia")
-public class Event extends BaseEntity implements Serializable {
+@Document(indexName ="event" )
+public class Event  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_elektrowni")
     @JsonBackReference
+    @Field(type = FieldType.Object)
     private PowerStation station;
 
     @Column(name = "typ_zdarzenia")
+    @Field(type = Text)
     private String eventType;
 
     @Column(name = "ubytek_mocy")
+    @Field(type = Text)
     private int powerLoss;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     @Column(name = "data_rozpoczecia")
+    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Timestamp startDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     @Column(name = "data_zakonczenia")
+    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Timestamp endDate;
 
     public Event() {
@@ -88,7 +102,7 @@ public class Event extends BaseEntity implements Serializable {
     public String toString() {
         return "Event{" +
                 "id=" + id +
-                ", station=" + station +
+
                 ", eventType='" + eventType + '\'' +
                 ", powerLoss=" + powerLoss +
                 ", startDate=" + startDate +

@@ -64,7 +64,7 @@ public class EventDTOImplementation implements EventDTOService {
     @Override
     public Collection<EventDTO> getAll() {
 
-        List<Event> events = eventRepository.findAll();
+        List<Event> events = (List<Event>) eventRepository.findAll();
         List<EventDTO> eventsDto = new ArrayList<>();
 
         for (Event event : events) {

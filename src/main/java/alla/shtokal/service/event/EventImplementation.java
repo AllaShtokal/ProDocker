@@ -69,7 +69,7 @@ public class EventImplementation implements EventService {
 
         }
 
-        return eventRepository.saveAll(eventsE);
+        return (List<Event>) eventRepository.saveAll(eventsE);
 
     }
 
@@ -82,7 +82,7 @@ public class EventImplementation implements EventService {
     @Override
     public Collection<Event> getAll() {
 
-        return eventRepository.findAll();}
+        return (Collection<Event>) eventRepository.findAll();}
 
     /**
      * a)	Należy przygotować metodę, która zliczy ilość zdarzeń

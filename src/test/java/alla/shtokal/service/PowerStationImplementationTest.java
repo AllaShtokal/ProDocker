@@ -1,5 +1,6 @@
 package alla.shtokal.service;
 
+import alla.shtokal.model.Event;
 import alla.shtokal.model.PowerStation;
 import alla.shtokal.repository.PowerStationRepository;
 
@@ -32,6 +33,17 @@ public class PowerStationImplementationTest {
 
         then(psRepository).should().findById(1L);
         assertEquals(byId.getName(), "AWARIA");
+
+
+    }
+
+    @Test
+    void testAddPowerStation() {
+        PowerStation station = new PowerStation("Nazwa", 1555);
+
+        eventImplementation.add(station);
+        then(psRepository).should().save(station);
+        assertEquals( "Nazwa",station.getName());
 
 
     }

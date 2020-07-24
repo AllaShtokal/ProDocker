@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "elektrownie")
-public class PowerStation extends BaseEntity implements Serializable {
+public class PowerStation  implements Serializable {
 
 
     @Id
