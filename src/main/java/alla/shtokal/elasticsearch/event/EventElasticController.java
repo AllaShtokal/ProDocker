@@ -1,11 +1,8 @@
 
-package alla.shtokal.elasticsearch;
+package alla.shtokal.elasticsearch.event;
 
 import alla.shtokal.anotations.LogController;
-import alla.shtokal.dto.mydto.EventDTO;
-import alla.shtokal.service.dto.EventDTOService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +28,10 @@ public class EventElasticController {
 
     @LogController
     @GetMapping(value = "/getAllFromElastic")
-    public ResponseEntity<List<EventDTO>> getAllFromElastic() {
+    public ResponseEntity<List<EventDtoElasticSearch>> getAllFromElastic() {
 
 
-        List<EventDTO> events = (List<EventDTO>) this.eventDTOElasticSearchService.getAll();
+        List<EventDtoElasticSearch> events = (List<EventDtoElasticSearch>) this.eventDTOElasticSearchService.getAll();
 
         if (events.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -48,25 +45,25 @@ public class EventElasticController {
      * getEventDTOById
      **/
     @GetMapping(value = "/getByIdFromElastic/{id}")
-    public ResponseEntity<List<EventDTO>> getByIdFromElastic(@PathVariable("id") Long eventId) {
+    public ResponseEntity<List<EventDtoElasticSearch>> getByIdFromElastic(@PathVariable("id") Long eventId) {
         if (eventId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        EventDTO event = this.eventDTOElasticSearchService.getById(eventId);
+        EventDtoElasticSearch event = this.eventDTOElasticSearchService.getById(eventId);
         if (event == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        List<EventDTO> list = new ArrayList<>();
+        List<EventDtoElasticSearch> list = new ArrayList<>();
         list.add(event);
         return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
 
     @GetMapping(value = "/addAllFromJPA")
-    public ResponseEntity<Long> addAllFromJPA() {
+    public ResponseEntity<String> addAllFromJPA() {
 
 
-        Long d =  this.eventDTOElasticSearchService.add();
+        String d =  this.eventDTOElasticSearchService.add();
 
 
         return new ResponseEntity<>(d, HttpStatus.OK);

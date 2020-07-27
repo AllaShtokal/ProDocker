@@ -4,22 +4,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
-
 @Entity
 @Getter
 @Setter
 @Table(name = "zdarzenia")
-@Document(indexName ="event" )
 public class Event  implements Serializable {
 
     @Id
@@ -30,26 +23,19 @@ public class Event  implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_elektrowni")
     @JsonBackReference
-    @Field(type = FieldType.Object)
     private PowerStation station;
 
     @Column(name = "typ_zdarzenia")
-    @Field(type = Text)
     private String eventType;
 
     @Column(name = "ubytek_mocy")
-    @Field(type = Text)
     private int powerLoss;
 
-
     @Column(name = "data_rozpoczecia")
-    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Timestamp startDate;
 
-
     @Column(name = "data_zakonczenia")
-    @Field(type = FieldType.Date, store = true, format = DateFormat.custom, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Timestamp endDate;
 
@@ -102,7 +88,6 @@ public class Event  implements Serializable {
     public String toString() {
         return "Event{" +
                 "id=" + id +
-
                 ", eventType='" + eventType + '\'' +
                 ", powerLoss=" + powerLoss +
                 ", startDate=" + startDate +
