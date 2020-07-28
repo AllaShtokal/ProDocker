@@ -1,9 +1,10 @@
 package alla.shtokal.elasticsearch.station;
 
-import alla.shtokal.elasticsearch.event.EventDtoElasticSearch;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Collection;
 
+@Profile("elasticSearch")
 public interface StationDtoElasticSearchService {
 
     Collection<StationDtoElasticSearch> getAll();

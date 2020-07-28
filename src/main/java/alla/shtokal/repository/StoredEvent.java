@@ -6,9 +6,11 @@ import com.alla.getallevents.GetAllEventsRequest;
 import com.alla.getallevents.GetAllEventsResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+@Profile("feign")
 @FeignClient(name = "simple-client", url = "http://localhost:9966", configuration = MySoapClientConfiguration.class)
 public interface StoredEvent {
 

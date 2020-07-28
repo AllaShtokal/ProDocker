@@ -27,8 +27,7 @@ public class PowerStationImplementation implements PowerStationService {
     @Transactional
     public PowerStation getById(Long id) {
 
-
-        PowerStation powerStation = powerStationRepository.findById(id).get();
+        PowerStation powerStation = powerStationRepository.findById(id).orElse(null);
         powerStation.getEvents().stream().forEach(event -> event.setPowerLoss(event.getPowerLoss() + 19));
         return  powerStation;
     }

@@ -18,8 +18,8 @@ import java.util.*;
 public class EventDTOImplementation implements EventDTOService {
 
 
-    private EventRepository eventRepository;
-    private PowerStationRepository powerStationRepository;
+    private final EventRepository eventRepository;
+    private final PowerStationRepository powerStationRepository;
     private final ModelMapper modelMapper;
 
     public EventDTOImplementation(EventRepository eventRepository, PowerStationRepository powerStationRepository, ModelMapper mapper) {
@@ -49,9 +49,9 @@ public class EventDTOImplementation implements EventDTOService {
     }
 
     @Override
-    public EventDTO getById(Long id) {
+    public EventDTO getById(Long id)   {
 
-        Event event = eventRepository.findById(id).get();
+        Event event = eventRepository.findById(id).orElse(null);
         EventDTO eventDTO = modelMapper.map(event, EventDTO.class);
 
         eventDTO.setPsId(event.getStation().getId());
@@ -64,7 +64,7 @@ public class EventDTOImplementation implements EventDTOService {
     @Override
     public Collection<EventDTO> getAll() {
 
-        List<Event> events = (List<Event>) eventRepository.findAll();
+        List<Event> events =  eventRepository.findAll();
         List<EventDTO> eventsDto = new ArrayList<>();
 
         for (Event event : events) {

@@ -1,12 +1,10 @@
 package alla.shtokal.elasticsearch;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.modelmapper.Converter;
-import org.modelmapper.spi.MappingContext;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -14,6 +12,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 
 @Configuration
 @ComponentScan(basePackages = { "alla.shtokal.elasticsearch" })
+@Profile("elasticSearch")
 public class ElasticConfiguration  {
 
     @Bean
